@@ -1,14 +1,20 @@
-import Vue from "vue";
-export const cstToggle = {
-  toggleCstDetails(){
-    cst.cstDetailsShown = !cst.cstDetailsShown
-  },
-  toggleCstTimeLine(){
-    cst.cstTimeLineShown = !cst.cstTimeLineShown
-  }
-}
+import { createStore } from "vuex";
 
-export const cst = Vue.observable({
-    cstTimeLineShown: false,
-    cstDetailsShown: false
+const cst = {
+	cstTimeLineShown: false,
+	cstDetailsShown: false,
+};
+
+const cstToggle = {
+	toggleCstDetails() {
+		cst.cstDetailsShown = !cst.cstDetailsShown;
+	},
+	toggleCstTimeLine() {
+		cst.cstTimeLineShown = !cst.cstTimeLineShown;
+	},
+};
+
+export default createStore({
+	cst,
+	cstToggle,
 });

@@ -1,11 +1,9 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 import About from '../views/About.vue'
 import MyEducation from '../views/my-education.vue'
 import WorkExpriences from '../views/WorkExp.vue'
 import ProjectDemo from '../views/Demo.vue'
 
-Vue.use(VueRouter)
 
   const routes = [
   {
@@ -35,8 +33,9 @@ Vue.use(VueRouter)
   }
 ]
 
-const router = new VueRouter({
-  routes
-})
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
 
-export default router
+export default router;

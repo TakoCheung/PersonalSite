@@ -1,14 +1,20 @@
-import Vue from "vue";
-export const fs = Vue.observable({
-    fsTimeLineShown: false,
-    fsDetailsShown: false
-});
+import { createStore } from "vuex";
 
-export const fsToggle = {
-  toggleFsDetails(){
-    fs.fsDetailsShown = !fs.fsDetailsShown
-  },
-  toggleFsTimeLine(){
-    fs.fsTimeLineShown = !fs.fsTimeLineShown
-  }
+const fs = {
+	fsTimeLineShown: false,
+	fsDetailsShown: false,
 };
+
+const fsToggle = {
+	toggleHwDetails() {
+		fs.fsDetailsShown = !fs.fsDetailsShown;
+	},
+	toggleHwTimeLine() {
+		fs.fsTimeLineShown = !fs.fsTimeLineShown;
+	},
+};
+
+export default createStore({
+	fs,
+	fsToggle,
+});

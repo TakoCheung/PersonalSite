@@ -9,19 +9,35 @@
 </div>
 </template>
 <script>
-import {
-  store,
-  mutations
-} from '@/state/store.js'
-
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 export default {
-  methods: {
-    closeSidebarPanel: mutations.toggleNav
+  setup() {
+    const store = useStore();
+
+    // Map mutations as needed
+    const isPanelOpen = computed(() => store.state.isNavOpen);
+    const closeSidebarPanel = () => store.commit('toggleNav');
+
+    return {
+      isPanelOpen,
+      closeSidebarPanel,
+    };
   },
-  computed: {
-    isPanelOpen() {
-      return store.isNavOpen
-    }
-  }
-}
+};
+// import {
+//   store,
+//   mutations
+// } from '@/state/store.js'
+
+// export default {
+//   methods: {
+//     closeSidebarPanel: mutations.toggleNav
+//   },
+//   computed: {
+//     isPanelOpen() {
+//       return store.isNavOpen
+//     }
+//   }
+// }
 </script>

@@ -1,13 +1,16 @@
-import Vue from "vue";
+import { createStore } from 'vuex';
 
-// save our state (isPanel open or not)
-export const store = Vue.observable({
-    isNavOpen: false
-});
-
-// We call toggleNav anywhere we need it in our app
-export const mutations = {
-    toggleNav() {
-      store.isNavOpen = !store.isNavOpen
-    }
+const state = {
+  isNavOpen: false
 };
+
+const mutations = {
+  toggleNav(state) {
+    state.isNavOpen = !state.isNavOpen;
+  }
+};
+
+export default createStore({
+  state,
+  mutations,
+});

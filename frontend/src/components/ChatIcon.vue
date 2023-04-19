@@ -4,21 +4,38 @@
 </div>
 </template>
 <script>
-import {
-  chatPanelOpen,
-  toggle
-} from '@/state/chatState.js'
+// import {
+//   chatPanelOpen,
+//   toggle
+// } from '@/state/chatState.js'
 
+// export default {
+//   computed: {
+//     isChatActive() {
+//       return chatPanelOpen.isChatOpen
+//     }
+//   },
+//   methods: {
+//     toggle() {
+//       toggle.toggleChat()
+//     }
+//   }
+// }
+
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 export default {
-  computed: {
-    isChatActive() {
-      return chatPanelOpen.isChatOpen
-    }
+  setup() {
+    const store = useStore();
+
+    // Map mutations as needed
+    const isChatActive = computed(() => store.chatPanelOpen);
+    const toggle = () => store.commit('toggleChat');
+
+    return {
+      isChatActive,
+      toggle,
+    };
   },
-  methods: {
-    toggle() {
-      toggle.toggleChat()
-    }
-  }
-}
+};
 </script>

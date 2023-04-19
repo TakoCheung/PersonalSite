@@ -1,10 +1,11 @@
-import Vue from "vue";
-export const hw = Vue.observable({
-    hwTimeLineShown: false,
-    hwDetailsShown: false
-});
+import { createStore } from 'vuex';
 
-export const hwToggle = {
+const hw = {
+  hwTimeLineShown: false,
+  hwDetailsShown: false
+};
+
+const hwToggle = {
   toggleHwDetails(){
     hw.hwDetailsShown = !hw.hwDetailsShown
   },
@@ -12,3 +13,8 @@ export const hwToggle = {
     hw.hwTimeLineShown = !hw.hwTimeLineShown
   }
 };
+
+export default createStore({
+  hw,
+  hwToggle,
+});

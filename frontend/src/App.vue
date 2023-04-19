@@ -26,7 +26,6 @@
       </nav>
     </v-container>
     <ChatIcon />
-    <ChatContainer />
   </div>
 </template>
 
@@ -34,7 +33,6 @@
 import Burger from './components/Menu/burger-bar.vue'; 
 import Sidebar from './components/Menu/side-bar.vue';
 import ChatIcon from './components/ChatIcon.vue';
-import ChatContainer from './components/ChatContainer.vue';
 import {
   store,
   mutations
@@ -47,8 +45,7 @@ export default {
   components: {
     Sidebar,
     Burger,
-    ChatIcon,
-    ChatContainer
+    ChatIcon
   },
   computed: {
     isBurgerActive() {
@@ -68,16 +65,16 @@ export default {
           .then(response => response.json())
           .then(data => {
             window.visitorIp = data.query.replaceAll('.', '_');
-            return fetch("https://api.telegram.org/bot315993652:AAER_pkBxCaLUvHnGhJLrXLR0oHQ0fHBEfM/sendMessage", {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                chat_id: "@personalPageTako",
-                text: data
-              })
-            })
+            // return fetch("https://api.telegram.org/bot315993652:AAER_pkBxCaLUvHnGhJLrXLR0oHQ0fHBEfM/sendMessage", {
+            //   method: 'POST',
+            //   headers: {
+            //     'Content-Type': 'application/json'
+            //   },
+            //   body: JSON.stringify({
+            //     chat_id: "@personalPageTako",
+            //     text: data
+            //   })
+            // })
           })
       }
     }

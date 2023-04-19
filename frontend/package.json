@@ -9,7 +9,7 @@
     "reset": "rm -rf node_modules && rm -rf package-lock.json && npm i"
   },
   "dependencies": {
-    "bootstrap-vue": "^2.23.1",
+    "bootstrap-vue-next": "^0.8.4",
     "core-js": "^3.30.1",
     "firebase": "^9.19.1",
     "jquery": "^3.6.4",
@@ -18,14 +18,13 @@
     "react-dom": "^18.2.0",
     "storage": "^0.2.0",
     "v-header": "^1.0.0",
-    "v-visible": "^1.0.0",
-    "vue": "^2.6.14",
-    "vue-advanced-chat": "^1.5.2",
-    "vue-google-charts": "^0.3.3",
-    "vue-p5": "^0.8.4",
-    "vue-router": "^3.5.3",
+    "vue": "^3.2.47",
+    "vue-advanced-chat": "^2.0.7",
+    "vue-google-charts": "^1.1.0",
+    "vue-router": "^4.1.6",
     "vue-scroll-progress": "^1.1.5",
-    "vuetify": "^2.6.3"
+    "vuetify": "^3.1.14",
+    "vuex" : "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
@@ -38,8 +37,7 @@
     "sass": "^1.62.0",
     "sass-loader": "^13.2.2",
     "vue-cli-plugin-vuetify": "^2.5.8",
-    "vue-template-compiler": "^2.7.14",
-    "vuetify-loader": "^1.9.2"
+    "vue-template-compiler": "^2.7.14"
   },
   "eslintConfig": {
     "root": true,
