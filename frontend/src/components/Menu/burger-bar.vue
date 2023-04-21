@@ -1,5 +1,5 @@
 <template>
-  <div id="burger" :class="{ 'active': isBurgerActive }" @click.prevent="toggle">
+  <div id="burger" :class="{ active: isBurgerActive }" @click.prevent="toggle">
     <slot>
       <button type="button" class="burger-button" title="Menu">
         <span class="hidden">Toggle menu</span>
@@ -12,16 +12,20 @@
 </template>
 <script>
 
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 export default {
-  computed: {
-    isBurgerActive() {
-      return this.$store.isNavOpen
-    }
+  setup() {
+    const store = useStore();
+
+    // Map mutations as needed
+    const isBurgerActive = computed(() => store.state.isNavOpen);
+    const toggle = () => store.commit('toggleNav');
+
+    return {
+      isBurgerActive,
+      toggle,
+    };
   },
-  methods: {
-    toggle() {
-      this.$store.commit('toggleNav');
-    }
-  }
-}
+};
 </script>
