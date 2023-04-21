@@ -50,6 +50,6 @@
 </script>
 <style>
   .ncsu{
-    #background-image: url("../assets/ncstate-type-2x2-red.png");
+    #background-image: url("../../public/assets/ncstate-type-2x2-red.png");
   }
 </style>

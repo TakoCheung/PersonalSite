@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import { createStore } from "vuex";
 import App from "@/App.vue";
-import router from "@/router";
+import router from "@/router/index";
 import vuetify from "@/plugins/vuetify";
 import VueScrollProgress from "vue-scroll-progress";
 import Header from "v-header";

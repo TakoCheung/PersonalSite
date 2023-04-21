@@ -7,8 +7,7 @@ import ProjectDemo from "../views/Demo.vue";
 const routes = [
 	{
 		path: "/",
-		name: "About",
-		component: About,
+		redirect: "/about"
 	},
 	{
 		path: "/about",

@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <img src="../assets/self.jpg">
+    <img src="../../assets/self.jpg" >
     <h1>About</h1>
     <p>My name is Kwan Ho Tako Cheung.</p>
     <p>I am an software engineer who is looking for a chance to impact the community
