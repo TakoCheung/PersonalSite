@@ -1,45 +1,38 @@
 <template>
   <div id="app">
-    <v-container>
-      <nav class="main-nav">
-        <VueScrollProgress />
-        <Burger />
 
-        <router-view />
+    <nav class="main-nav">
+      <VueScrollProgress />
+      <Burger />
 
-        <Sidebar>
-          <ul class="sidebar-panel-nav">
-            <li @click="toggle">
-              <router-link to="/about">About</router-link>
-            </li>
-            <li @click="toggle">
-              <router-link to="/education">Education</router-link>
-            </li>
-            <li @click="toggle">
-              <router-link to="/WorkExpriences">Work Expriences</router-link>
-            </li>
-            <li @click="toggle">
-              <router-link to="/Demo">Demo</router-link>
-            </li>
-          </ul>
-        </Sidebar>
-      </nav>
-    </v-container>
+      <router-view />
+
+      <Sidebar>
+        <ul class="sidebar-panel-nav">
+          <li @click="toggle">
+            <router-link to="/about">About</router-link>
+          </li>
+          <li @click="toggle">
+            <router-link to="/education">Education</router-link>
+          </li>
+          <li @click="toggle">
+            <router-link to="/WorkExpriences">Work Expriences</router-link>
+          </li>
+          <li @click="toggle">
+            <router-link to="/Demo">Demo</router-link>
+          </li>
+        </ul>
+      </Sidebar>
+    </nav>
     <ChatIcon />
   </div>
 </template>
 
 <script>
-import Burger from './components/Menu/burger-bar.vue'; 
-import Sidebar from './components/Menu/side-bar.vue';
-import ChatIcon from './components/ChatIcon.vue';
-import {
-  store,
-  mutations
-} from '@/state/store.js';
-import {
-  toggle
-} from '@/state/chatState.js'
+import Burger from '@/components/Menu/burger-bar.vue';
+import Sidebar from '@/components/Menu/side-bar.vue';
+import ChatIcon from '@/components/ChatIcon.vue';
+
 export default {
   name: 'app',
   components: {
@@ -47,15 +40,9 @@ export default {
     Burger,
     ChatIcon
   },
-  computed: {
-    isBurgerActive() {
-      return store.isNavOpen
-    }
-  },
   methods: {
     toggle() {
-      toggle.offChat()
-      mutations.toggleNav()
+      this.$store.commit('toggleNav');
     },
     visited() {
       if (window.visitorIp !== '') {
@@ -65,22 +52,22 @@ export default {
           .then(response => response.json())
           .then(data => {
             window.visitorIp = data.query.replaceAll('.', '_');
-            // return fetch("https://api.telegram.org/bot315993652:AAER_pkBxCaLUvHnGhJLrXLR0oHQ0fHBEfM/sendMessage", {
-            //   method: 'POST',
-            //   headers: {
-            //     'Content-Type': 'application/json'
-            //   },
-            //   body: JSON.stringify({
-            //     chat_id: "@personalPageTako",
-            //     text: data
-            //   })
-            // })
+            return fetch("https://api.telegram.org/bot315993652:AAER_pkBxCaLUvHnGhJLrXLR0oHQ0fHBEfM/sendMessage", {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                chat_id: "@personalPageTako",
+                text: data
+              })
+            })
           })
       }
     }
   },
   beforeMount() {
-    this.visited()
+    // this.visited()
   },
 }
 </script>

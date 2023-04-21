@@ -10,9 +10,6 @@
 </template>
 
 <script>
-  import { hw, hwToggle } from '@/state/honeywellState.js'
-  import { cst, cstToggle } from '@/state/cstState.js'
-  import { fs, fsToggle } from '@/state/farragutState.js'
   export default {
     name: 'CardFooter',
     props: {id:String},
@@ -22,13 +19,13 @@
           this.clickDetails();
         }
         if(this.id === "hw") {
-          hwToggle.toggleHwTimeLine()
+          this.$store.commit('toggleHwTimeLine');
         }
         else if(this.id === "cst") {
-          cstToggle.toggleCstTimeLine()
+          this.$store.commit('toggleCstTimeLine');
         }
         else if(this.id === "fs") {
-          fsToggle.toggleFsTimeLine()
+          this.$store.commit('toggleFsTimeLine');
         }
       },
       clickDetails(){
@@ -36,35 +33,35 @@
           this.clickTimeLine();
         }
         if(this.id === "hw") {
-          hwToggle.toggleHwDetails()
+          this.$store.commit('toggleHwDetails');
         }
         else if(this.id === "cst") {
-          cstToggle.toggleCstDetails()
+          this.$store.commit('toggleCstDetails');
         }
         else if(this.id === "fs") {
-          fsToggle.toggleFsDetails()
+          this.$store.commit('toggleFsDetails');
         }
       },
       timeLineShown(){
         if(this.id === "hw") {
-          return hw.hwTimeLineShown
+          return this.$store.hwTimeLineShown
         }
         else if(this.id === "cst") {
-          return cst.cstTimeLineShown
+          return this.$store.cstTimeLineShown
         }
         else if(this.id === "fs") {
-          return fs.fsTimeLineShown
+          return this.$store.fsTimeLineShown
         }
       },
       detailsShown(){
         if(this.id === "hw") {
-          return hw.hwDetailsShown
+          return this.$store.hwDetailsShown
         }
         else if(this.id === "cst") {
-          return cst.cstDetailsShown
+          return this.$store.cstDetailsShown
         }
         else if(this.id === "fs") {
-          return fs.fsDetailsShown
+          return this.$store.fsDetailsShown
         }
       }
     }

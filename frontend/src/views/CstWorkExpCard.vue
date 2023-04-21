@@ -37,7 +37,6 @@
 
 <script>
 import CardFooter from './CardFooter'
-import { cst } from '@/state/cstState.js'
 export default {
   name: 'CstWorkExpCard',
   components: {
@@ -62,10 +61,10 @@ export default {
       })
     },
     getDetailsShown() {
-      return cst.cstDetailsShown
+      return this.$store.cstDetailsShown
     },
     getTimeLineShown() {
-      return cst.cstTimeLineShown
+      return this.$store.cstTimeLineShown
     }
   }
 }

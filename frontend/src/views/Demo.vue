@@ -1,5 +1,4 @@
 <template>
-  <v-container>
     <div>
       <h1 class=red>
         This is red.
@@ -9,7 +8,6 @@
       </p>
 
     </div>
-  </v-container>
 </template>
 <script>
 export default {

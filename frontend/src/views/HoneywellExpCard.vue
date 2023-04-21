@@ -46,7 +46,6 @@
 
 <script>
 import CardFooter from './CardFooter'
-import { hw } from '@/state/honeywellState.js'
 export default {
   name: 'HoneywellExpCard',
   components: {
@@ -71,10 +70,10 @@ export default {
       })
     },
     getDetailsShown() {
-      return hw.hwDetailsShown
+      return this.$store.hwDetailsShown
     },
     getTimeLineShown() {
-      return hw.hwTimeLineShown
+      return this.$store.hwTimeLineShown
     }
   }
 }

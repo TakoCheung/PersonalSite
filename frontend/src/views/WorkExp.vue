@@ -1,17 +1,15 @@
 <template>
-  <v-container>
-    <v-row dense>
-        <v-col cols="12">
-          <FarragutWorkExpCard/>
-        </v-col>
-        <v-col cols="12">
-          <CstWorkExpCard/>
-        </v-col>
-        <v-col cols="12">
-          <HoneywellExpCard/>
-        </v-col>
-    </v-row>
-  </v-container>
+  <v-row dense>
+    <v-col cols="12">
+      <FarragutWorkExpCard />
+    </v-col>
+    <v-col cols="12">
+      <CstWorkExpCard />
+    </v-col>
+    <v-col cols="12">
+      <HoneywellExpCard />
+    </v-col>
+  </v-row>
 </template>
 
 <script>

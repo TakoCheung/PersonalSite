@@ -37,7 +37,6 @@
 
 <script>
 import CardFooter from './CardFooter'
-import { fs } from '@/state/farragutState.js'
 export default {
   name: 'FarragutWorkExpCard',
   components: {
@@ -62,10 +61,10 @@ export default {
       })
     },
     getDetailsShown() {
-      return fs.fsDetailsShown
+      return this.$store.fsDetailsShown
     },
     getTimeLineShown() {
-      return fs.fsTimeLineShown
+      return this.$store.fsTimeLineShown
     }
   }
 }

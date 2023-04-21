@@ -9,13 +9,11 @@
     "reset": "rm -rf node_modules && rm -rf package-lock.json && npm i"
   },
   "dependencies": {
-    "bootstrap-vue-next": "^0.8.4",
+    "bootstrap-vue-next": "^0.8.6",
     "core-js": "^3.30.1",
-    "firebase": "^9.19.1",
+    "firebase": "^9.20.0",
     "jquery": "^3.6.4",
     "lamejs": "^1.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "storage": "^0.2.0",
     "v-header": "^1.0.0",
     "vue": "^3.2.47",
@@ -23,7 +21,7 @@
     "vue-google-charts": "^1.1.0",
     "vue-router": "^4.1.6",
     "vue-scroll-progress": "^1.1.5",
-    "vuetify": "^3.1.14",
+    "vuetify": "^3.1.15",
     "vuex" : "^4.1.0"
   },
   "devDependencies": {
@@ -33,7 +31,7 @@
     "@vue/cli-plugin-eslint": "~5.0.8",
     "@vue/cli-service": "~5.0.8",
     "eslint": "^8.38.0",
-    "eslint-plugin-vue": "^9.10.0",
+    "eslint-plugin-vue": "^9.11.0",
     "sass": "^1.62.0",
     "sass-loader": "^13.2.2",
     "vue-cli-plugin-vuetify": "^2.5.8",
