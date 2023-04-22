@@ -5,7 +5,7 @@ import router from "@/router/index";
 import vuetify from "@/plugins/vuetify";
 import VueScrollProgress from "vue-scroll-progress";
 import Header from "v-header";
-import VueGoogleCharts from "vue-google-charts";
+import { GChart } from "vue-google-charts";
 import { BootstrapVueNext, IconsPlugin } from "bootstrap-vue-next";
 
 const store = createStore({
@@ -54,7 +54,7 @@ const app = createApp(App);
 
 app.use(BootstrapVueNext);
 app.use(IconsPlugin);
-app.use(VueGoogleCharts);
+app.use(GChart);
 app.use(VueScrollProgress);
 app.use(Header);
 
