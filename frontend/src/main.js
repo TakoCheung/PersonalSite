@@ -2,11 +2,13 @@ import { createApp } from "vue";
 import { createStore } from "vuex";
 import App from "@/App.vue";
 import router from "@/router/index";
-import vuetify from "@/plugins/vuetify";
-import VueScrollProgress from "vue-scroll-progress";
 import Header from "v-header";
 import { GChart } from "vue-google-charts";
 import { BootstrapVueNext, IconsPlugin } from "bootstrap-vue-next";
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
 const store = createStore({
 	state: {
@@ -18,6 +20,7 @@ const store = createStore({
 		fsDetailsShown: false,
 		cstTimeLineShown: false,
 		cstDetailsShown: false,
+		// progress: 0.3
 	},
 	mutations: {
 		toggleNav(state) {
@@ -47,15 +50,22 @@ const store = createStore({
 		toggleCstTimeLine(state) {
 			state.cstTimeLineShown = !state.cstTimeLineShown;
 		},
+		// progressChange(state, n){
+		// 	state.progress = n;
+		// }
 	},
 });
+
+const vuetify = createVuetify({
+  components,
+  directives,
+})
 
 const app = createApp(App);
 
 app.use(BootstrapVueNext);
 app.use(IconsPlugin);
 app.use(GChart);
-app.use(VueScrollProgress);
 app.use(Header);
 
 app.use(router);

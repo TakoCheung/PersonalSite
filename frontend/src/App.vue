@@ -1,44 +1,45 @@
 <template>
-  <div id="app">
-
-    <nav class="main-nav">
-      <VueScrollProgress />
-      <Burger />
-
-      <router-view />
-
-      <Sidebar>
-        <ul class="sidebar-panel-nav">
-          <li @click="toggle">
-            <router-link to="/about">About</router-link>
-          </li>
-          <li @click="toggle">
-            <router-link to="/education">Education</router-link>
-          </li>
-          <li @click="toggle">
-            <router-link to="/WorkExpriences">Work Expriences</router-link>
-          </li>
-          <li @click="toggle">
-            <router-link to="/Demo">Demo</router-link>
-          </li>
-        </ul>
-      </Sidebar>
-    </nav>
-    <ChatIcon />
-  </div>
+  <ProgressIndicator />
+  <v-container>
+    <div id="app">
+      <nav class="main-nav">
+        <Burger />
+        <router-view />
+        <Sidebar>
+          <ul class="sidebar-panel-nav">
+            <li @click="toggle">
+              <router-link to="/about">About</router-link>
+            </li>
+            <li @click="toggle">
+              <router-link to="/education">Education</router-link>
+            </li>
+            <li @click="toggle">
+              <router-link to="/WorkExpriences">Work Expriences</router-link>
+            </li>
+            <li @click="toggle">
+              <router-link to="/Demo">Demo</router-link>
+            </li>
+          </ul>
+        </Sidebar>
+      </nav>
+      <ChatIcon />
+    </div>
+  </v-container>
 </template>
 
 <script>
 import Burger from '@/components/Menu/burger-bar.vue';
 import Sidebar from '@/components/Menu/side-bar.vue';
 import ChatIcon from '@/components/ChatIcon.vue';
+import ProgressIndicator from "@/components/ProgressIndicator";
 
 export default {
   name: 'app',
   components: {
     Sidebar,
     Burger,
-    ChatIcon
+    ChatIcon,
+    ProgressIndicator
   },
   methods: {
     toggle() {
@@ -68,7 +69,7 @@ export default {
   },
   beforeMount() {
     // this.visited()
-  },
+  }
 }
 </script>
 <style>
@@ -263,6 +264,20 @@ button:focus {
   z-index: 10;
   right: 0;
   bottom: 0;
+
+}
+
+.progress-indicator {
+  height: 5px;
+  background: #42b983;
+}
+
+.progress-indicator-wrapper {
+  position: fixed;
+  height: 5px;
+  background-color: #eee;
+  width: 100%;
+  top: 0px;
 
 }
 </style>
