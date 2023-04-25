@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import About from "../views/AboutMe.vue";
-import MyEducation from "../views/my-education.vue";
+import MyEducation from "../views/MyEducation.vue";
 import WorkExpriences from "../views/WorkExp.vue";
 import ProjectDemo from "../views/Demo.vue";
 
@@ -16,7 +16,7 @@ const routes = [
 	},
 	{
 		path: "/education",
-		name: "Education",
+		name: "MyEducation",
 		component: MyEducation,
 	},
 	{
