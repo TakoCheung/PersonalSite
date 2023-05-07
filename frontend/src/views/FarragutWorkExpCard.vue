@@ -12,7 +12,7 @@
         • Integrated Jenkins with MS Team to enable real-time notification for better CI monitoring.
       </v-list-item-subtitle>
     </v-list-item-content>
-    <v-list-item-avatar tile size="80"><img src="../assets/farragut.jpeg"></v-list-item-avatar>
+    <v-icon tile size="80"><img src="../assets/farragut.jpeg"></v-icon>
   </v-list-item>
   <CardFooter id="fs"/>
 
