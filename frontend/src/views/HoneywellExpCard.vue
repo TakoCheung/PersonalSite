@@ -1,7 +1,7 @@
 <template>
-<v-card :style="{height : getDetailsShown ? 568+'px':getTimeLineShown ? 256+'px':164+'px', marginBottom:8+'px'}" class="mb-3" max-width="344">
+<v-card :style="{height : getDetailsShown ? 568+'px':getTimeLineShown ? 256+'px':164+'px', marginBottom:8+'px'}"  class="mx-auto" max-width="344">
   <v-list-item three-line>
-    <v-list-item-content>
+    <v-list-item>
       <div class="text-overline mb-4">
         <span style="color:#ef3124">Honeywell</span>
       </div>
@@ -12,8 +12,8 @@
         Requirement Analysis:
         <p>• HTTPS became a requirement when we were designing the User Management Web App.</p>
       </v-list-item-subtitle>
-    </v-list-item-content>
-    <v-list-item-avatar tile size="80"><img src="../assets/hw.jpeg"></v-list-item-avatar>
+    </v-list-item>
+    <v-avatar tile size="80"><img src="../assets/hw.jpeg"></v-avatar>
   </v-list-item>
   <CardFooter id="hw"/>
 

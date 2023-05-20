@@ -1,6 +1,6 @@
 <template>
 <div id="chatIcon" :class="{ 'active' : isChatActive }" @click.prevent="toggle">
-  <i class="chatButton" icon="chat-text" type="button" animation="Throb" font-scale="2"></i>
+  <b-icon class="chatButton" icon="chat-text" type="button" animation="Throb" font-scale="2"></b-icon>
 </div>
 </template>
 <script>

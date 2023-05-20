@@ -16,7 +16,7 @@
         </v-list-item-subtitle>
       </div>
       <v-col cols="12" class="text-right">
-        <v-icon rounded size="1"><img src="../assets/cst.jpeg"></v-icon>
+        <v-avatar rounded size="1"><img src="../assets/cst.jpeg"></v-avatar>
       </v-col>
     </v-list-item>
     <CardFooter id="cst" />

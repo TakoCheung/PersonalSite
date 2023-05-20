@@ -4,7 +4,6 @@ import App from "@/App.vue";
 import router from "@/router/index";
 import Header from "v-header";
 import { GChart } from "vue-google-charts";
-import { BootstrapVueNext } from "bootstrap-vue-next";
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
@@ -59,7 +58,6 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 
-app.use(BootstrapVueNext);
 app.use(GChart);
 app.use(Header);
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/takocheung/Desktop/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj": {}
+    "/Users/takocheung/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj": {}
   },
   "projects": {
-    "/Users/takocheung/Desktop/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj": {
+    "/Users/takocheung/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/takocheung/Desktop/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
+        "projectUniqueName": "/Users/takocheung/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
         "projectName": "CosmosGettingStarted",
-        "projectPath": "/Users/takocheung/Desktop/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
+        "projectPath": "/Users/takocheung/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
         "packagesPath": "/Users/takocheung/.nuget/packages/",
-        "outputPath": "/Users/takocheung/Desktop/PersonalSite/CosmosGettingStartedTutorial/obj/",
+        "outputPath": "/Users/takocheung/PersonalSite/CosmosGettingStartedTutorial/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [

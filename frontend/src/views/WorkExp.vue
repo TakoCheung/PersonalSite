@@ -1,15 +1,15 @@
 <template>
-  <v-row dense>
-    <v-col cols="12">
+  <v-col dense>
+    <v-row cols="12">
       <FarragutWorkExpCard />
-    </v-col>
-    <v-col cols="12">
+    </v-row>
+    <v-row cols="12">
       <CstWorkExpCard />
-    </v-col>
-    <v-col cols="12">
+    </v-row>
+    <v-row cols="12">
       <HoneywellExpCard />
-    </v-col>
-  </v-row>
+    </v-row>
+  </v-col>
 </template>
 
 <script>
