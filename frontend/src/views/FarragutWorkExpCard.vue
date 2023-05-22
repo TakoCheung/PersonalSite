@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :style="{ height : getDetailsShown ? 282+'px':getTimeLineShown ? 256+'px':'auto',marginBottom: 8 + 'px' }"
+    :style="{ height : getDetailsShown ? 226+'px':getTimeLineShown ? 256+'px':'auto',marginBottom: 8 + 'px' }"
     class="mx-auto" max-width="380">
     <template v-slot:title>
       <span class="text-overline mb-4" style="color:#d7332c">Farragut Systems</span>
@@ -20,8 +20,8 @@
 
     <v-expand-transition>
       <v-card v-if="getTimeLineShown" class="transition-fast-in-fast-out v-card--reveal" style="height: 100%;">
-        <GChart :settings="{ packages: ['timeline'] }" type="Timeline" :data="fsChartData" :options="fsChartOptions" />
         <CardFooter id="fs" />
+        <GChart :settings="{ packages: ['timeline'] }" type="Timeline" :data="fsChartData" :options="fsChartOptions" />
       </v-card>
     </v-expand-transition>
     <v-expand-transition>

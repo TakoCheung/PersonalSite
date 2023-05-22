@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :style="{ height: getDetailsShown ? 568 + 'px' : getTimeLineShown ? 256 + 'px' : 'auto', marginBottom: 8 + 'px' }"
+    :style="{ height: getDetailsShown ? 480 + 'px' : getTimeLineShown ? 256 + 'px' : 'auto', marginBottom: 8 + 'px' }"
     class="mx-auto" max-width="380">
     <template v-slot:title>
       <span class="text-overline mb-4" style="color:#ef3124">Honeywell</span>
@@ -21,9 +21,9 @@
 
     <v-expand-transition>
       <v-card v-if="getTimeLineShown" class="transition-fast-in-fast-out v-card--reveal">
+        <CardFooter id="hw" />
         <GChart :settings="{ packages: ['timeline'] }" type="Timeline" :data="honeywellChartData"
           :options="honeywellChartOptions" />
-        <CardFooter id="hw" />
       </v-card>
     </v-expand-transition>
     <v-expand-transition>
