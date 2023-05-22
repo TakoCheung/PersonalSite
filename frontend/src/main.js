@@ -65,8 +65,8 @@ app.use(router);
 app.use(vuetify);
 app.use(store);
 
-app.config.compilerOptions.isCustomElement = (tagName) => {
-	return tagName === "vue-advanced-chat" || tagName === "emoji-picker";
-};
+// app.config.compilerOptions.isCustomElement = (tagName) => {
+// 	return tagName === "vue-advanced-chat" || tagName === "emoji-picker";
+// };
 
 app.mount("#app");

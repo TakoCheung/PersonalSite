@@ -1,23 +1,22 @@
 <template>
-  <v-card :style="{ height: getDetailsShown ? 370 + 'px' : getTimeLineShown ? 256 + 'px' : 164 + 'px', marginBottom: 8 + 'px' }"
-    class="mx-auto" max-width="344">
+  <v-card
+    :style="{ height: getDetailsShown ? 370 + 'px' : getTimeLineShown ? 256 + 'px' : 217 + 'px', marginBottom: 8 + 'px' }"
+    class="mx-auto" max-width="380">
+    <template v-slot:title>
+      <span class="text-overline mb-4" style="color:#ef4b24">CentralSquare Techolgies</span>
+    </template>
+    <template v-slot:subtitle>
+      <span class="text-h5 mb-4">Software Developer III</span>
+    </template>
+    <template v-slot:append>
+      <v-avatar size="80" image="../../assets/cst.jpeg" />
+    </template>
     <v-list-item three-line>
-      <div>
-        <div class="text-overline mb-4">
-          <span style="color:#ef4b24">CentralSquare Techolgies</span>
-        </div>
-        <v-list-item-title class="text-h5 mb-1">
-          Software Developer III
-        </v-list-item-title>
-        <v-list-item-subtitle>
-          • Implemented a secured web API using
-          HttpListener(https://docs.microsoft.com/en-us/dotnet/framework/network-programming/httplistener) with JWT
-          authorization.
-        </v-list-item-subtitle>
-      </div>
-      <v-col cols="12" class="text-right">
-        <v-avatar rounded size="1"><img src="../assets/cst.jpeg"></v-avatar>
-      </v-col>
+      <v-list-item-subtitle>
+        • Implemented a secured web API using
+        HttpListener(https://docs.microsoft.com/en-us/dotnet/framework/network-programming/httplistener) with JWT
+        authorization.
+      </v-list-item-subtitle>
     </v-list-item>
     <CardFooter id="cst" />
 

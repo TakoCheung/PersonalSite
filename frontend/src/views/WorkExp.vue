@@ -1,15 +1,15 @@
 <template>
-  <v-col dense>
-    <v-row cols="12">
+  <v-row dense>
+    <v-col cols="12">
       <FarragutWorkExpCard />
-    </v-row>
-    <v-row cols="12">
+    </v-col>
+    <v-col cols="12">
       <CstWorkExpCard />
-    </v-row>
-    <v-row cols="12">
+    </v-col>
+    <v-col cols="12">
       <HoneywellExpCard />
-    </v-row>
-  </v-col>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -25,11 +25,3 @@ export default {
   }
 }
 </script>
-<style>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
-  width: 100%;
-}
-</style>
