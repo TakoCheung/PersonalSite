@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :style="{ height: getDetailsShown ? 568 + 'px' : getTimeLineShown ? 256 + 'px' : 201 + 'px', marginBottom: 8 + 'px' }"
+    :style="{ height: getDetailsShown ? 568 + 'px' : getTimeLineShown ? 256 + 'px' : 'auto', marginBottom: 8 + 'px' }"
     class="mx-auto" max-width="380">
     <template v-slot:title>
       <span class="text-overline mb-4" style="color:#ef3124">Honeywell</span>
@@ -20,14 +20,14 @@
     <CardFooter id="hw" />
 
     <v-expand-transition>
-      <v-card v-if="getTimeLineShown" class="transition-fast-in-fast-out v-card--reveal" style="height: 100%;">
+      <v-card v-if="getTimeLineShown" class="transition-fast-in-fast-out v-card--reveal">
         <GChart :settings="{ packages: ['timeline'] }" type="Timeline" :data="honeywellChartData"
           :options="honeywellChartOptions" />
         <CardFooter id="hw" />
       </v-card>
     </v-expand-transition>
     <v-expand-transition>
-      <v-card v-if="getDetailsShown" class="transition-fast-in-fast-out v-card--reveal" style="height: 100%;">
+      <v-card v-if="getDetailsShown" class="transition-fast-in-fast-out v-card--reveal">
         <v-card-text class="pb-0">Requirement Analysis:
           <p>• HTTPS became a requirement when we were designing the User Management Web App.</p>
           <p>Design:</p>
@@ -51,10 +51,14 @@
 
 <script>
 import CardFooter from './CardFooter'
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { GChart } from 'vue-google-charts'
 export default {
   name: 'HoneywellExpCard',
   components: {
     CardFooter,
+    GChart
   },
   data: () => ({
     chartsLib: null,
@@ -68,18 +72,28 @@ export default {
       this.chartsLib = google
     }
   },
-  computed: {
-    honeywellChartOptions() {
+  setup() {
+    const store = useStore();
+    const honeywellChartOptions = computed(() => {
       return ({
         colors: ['#ef3124']
       })
-    },
-    getDetailsShown() {
-      return this.$store.hwDetailsShown
-    },
-    getTimeLineShown() {
-      return this.$store.hwTimeLineShown
-    }
+    });
+    const getDetailsShown = computed(() => {
+      return store.state.hwDetailsShown
+    });
+    const getTimeLineShown = computed(() => {
+      return store.state.hwTimeLineShown
+    });
+    return { honeywellChartOptions, getDetailsShown, getTimeLineShown }
   }
 }
 </script>
+<style scoped>
+.v-card--reveal {
+  bottom: 0;
+  opacity: 1 !important;
+  position: absolute;
+  width: 100%;
+}
+</style>

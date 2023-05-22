@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :style="{ height: getDetailsShown ? 370 + 'px' : getTimeLineShown ? 256 + 'px' : 217 + 'px', marginBottom: 8 + 'px' }"
+    :style="{ height: getDetailsShown ? 370 + 'px' : getTimeLineShown ? 256 + 'px' : 'auto', marginBottom: 8 + 'px' }"
     class="mx-auto" max-width="380">
     <template v-slot:title>
       <span class="text-overline mb-4" style="color:#ef4b24">CentralSquare Techolgies</span>
@@ -44,10 +44,14 @@
 
 <script>
 import CardFooter from './CardFooter'
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { GChart } from 'vue-google-charts'
 export default {
   name: 'CstWorkExpCard',
   components: {
     CardFooter,
+    GChart
   },
   data: () => ({
     chartsLib: null,
@@ -61,18 +65,28 @@ export default {
       this.chartsLib = google
     }
   },
-  computed: {
-    cstChartOptions() {
+  setup() {
+    const store = useStore();
+    const cstChartOptions = computed(() => {
       return ({
         colors: ['#ef4b24']
       })
-    },
-    getDetailsShown() {
-      return this.$store.cstDetailsShown
-    },
-    getTimeLineShown() {
-      return this.$store.cstTimeLineShown
-    }
+    });
+    const getDetailsShown = computed(() => {
+      return store.state.cstDetailsShown
+    });
+    const getTimeLineShown = computed(() => {
+      return store.state.cstTimeLineShown
+    });
+    return { cstChartOptions, getDetailsShown, getTimeLineShown }
   }
 }
 </script>
+<style scoped>
+.v-card--reveal {
+  bottom: 0;
+  opacity: 1 !important;
+  position: absolute;
+  width: 100%;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :style="{ height: getDetailsShown ? 282 + 'px' : getTimeLineShown ? 256 + 'px' : 185 + 'px', marginBottom: 8 + 'px' }"
+    :style="{ height : getDetailsShown ? 282+'px':getTimeLineShown ? 256+'px':'auto',marginBottom: 8 + 'px' }"
     class="mx-auto" max-width="380">
     <template v-slot:title>
       <span class="text-overline mb-4" style="color:#d7332c">Farragut Systems</span>
@@ -43,10 +43,12 @@
 import CardFooter from './CardFooter'
 import { useStore } from 'vuex';
 import { computed } from 'vue';
+import { GChart } from 'vue-google-charts'
 export default {
   name: 'FarragutWorkExpCard',
   components: {
     CardFooter,
+    GChart
   },
   data: () => ({
     chartsLib: null,
@@ -68,7 +70,7 @@ export default {
     const getTimeLineShown = computed(() => {
       return store.state.fsTimeLineShown
     });
-    const fsChartOptions = computed(()=> {
+    const fsChartOptions = computed(() => {
       return ({
         colors: ['#d7332c']
       })
@@ -77,3 +79,11 @@ export default {
   }
 }
 </script>
+<style scoped>
+.v-card--reveal {
+  bottom: 0;
+  opacity: 1 !important;
+  position: absolute;
+  width: 100%;
+}
+</style>
