@@ -48,6 +48,12 @@ const store = createStore({
 		toggleCstTimeLine(state) {
 			state.cstTimeLineShown = !state.cstTimeLineShown;
 		},
+		toggleTimeline(state, id){
+
+		},
+		toggleDetails(state, id){
+
+		}
 	},
 });
 
