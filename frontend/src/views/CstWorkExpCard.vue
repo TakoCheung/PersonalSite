@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import CardFooter from './CardFooter'
+import CardFooter from '@/components/Card/CardFooter.vue'
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { GChart } from 'vue-google-charts'
@@ -54,17 +54,11 @@ export default {
     GChart
   },
   data: () => ({
-    chartsLib: null,
     cstChartData: [
       ['Organization', 'Start', 'End'],
       ['CentralSquare Technolgies', new Date(2018, 4, 30), new Date(2020, 12, 2)]
     ],
   }),
-  methods: {
-    onChartReady(chart, google) {
-      this.chartsLib = google
-    }
-  },
   setup() {
     const store = useStore();
     const cstChartOptions = computed(() => {

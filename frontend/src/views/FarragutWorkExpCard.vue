@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import CardFooter from './CardFooter'
+import CardFooter from '@/components/Card/CardFooter.vue'
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { GChart } from 'vue-google-charts'
@@ -50,18 +50,22 @@ export default {
     CardFooter,
     GChart
   },
+  props:{
+    organization: String,
+    start: Date,
+    end: Date,
+    detailCardHeight: Number,
+    timeLineCardHeight: Number,
+    positionTitle: String,
+    shortDesc: String,
+    longDesc: String
+  },
   data: () => ({
-    chartsLib: null,
     fsChartData: [
       ['Organization', 'Start', 'End'],
       ['Farragut Systems', new Date(2020, 12, 4), Date.now()]
     ],
   }),
-  methods: {
-    onChartReady(chart, google) {
-      this.chartsLib = google
-    }
-  },
   setup() {
     const store = useStore();
     const getDetailsShown = computed(() => {

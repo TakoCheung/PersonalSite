@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import CardFooter from './CardFooter'
+import CardFooter from '@/components/Card/CardFooter.vue'
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { GChart } from 'vue-google-charts'
@@ -61,17 +61,11 @@ export default {
     GChart
   },
   data: () => ({
-    chartsLib: null,
     honeywellChartData: [
       ['Organization', 'Start', 'End'],
       ['Honeywell', new Date(2016, 12, 14), new Date(2018, 4, 14)]
     ],
   }),
-  methods: {
-    onChartReady(chart, google) {
-      this.chartsLib = google
-    }
-  },
   setup() {
     const store = useStore();
     const honeywellChartOptions = computed(() => {
