@@ -9,7 +9,6 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
-con
 
 const store = createStore({
 	state: {
@@ -50,16 +49,16 @@ const store = createStore({
 		toggleCstTimeLine(state) {
 			state.cstTimeLineShown = !state.cstTimeLineShown;
 		},
-		toggleTimeline(state, id){
-			state.hwTimeLineShown = !state.hwTimeLineShown;
-			state.fsTimeLineShown = !state.fsTimeLineShown;
-			state.cstTimeLineShown = !state.cstTimeLineShown;
-		},
-		toggleDetails(state, id){
-			state.fsTimeLineShown = !state.fsTimeLineShown;
-			state.cstDetailsShown = !state.cstDetailsShown;
-			state.fsDetailsShown = !state.fsDetailsShown;
-		}
+		// toggleTimeline(state, id){
+		// 	state.hwTimeLineShown = !state.hwTimeLineShown;
+		// 	state.fsTimeLineShown = !state.fsTimeLineShown;
+		// 	state.cstTimeLineShown = !state.cstTimeLineShown;
+		// },
+		// toggleDetails(state, id){
+		// 	state.fsTimeLineShown = !state.fsTimeLineShown;
+		// 	state.cstDetailsShown = !state.cstDetailsShown;
+		// 	state.fsDetailsShown = !state.fsDetailsShown;
+		// }
 	},
 });
 
