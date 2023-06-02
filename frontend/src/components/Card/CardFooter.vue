@@ -20,29 +20,13 @@ export default {
       if (this.detailsShown) {
         this.clickDetails();
       }
-      if (this.id === "hw") {
-        this.$store.commit('toggleHwTimeLine');
-      }
-      else if (this.id === "cst") {
-        this.$store.commit('toggleCstTimeLine');
-      }
-      else {
-        this.$store.commit('toggleFsTimeLine');
-      }
+      this.$store.commit('toggleTimeline', this.id);
     },
     clickDetails() {
       if (this.timeLineShown) {
         this.clickTimeLine();
       }
-      if (this.id === "hw") {
-        this.$store.commit('toggleHwDetails');
-      }
-      else if (this.id === "cst") {
-        this.$store.commit('toggleCstDetails');
-      }
-      else {
-        this.$store.commit('toggleFsDetails');
-      }
+      this.$store.commit('toggleDetails', this.id);
     },
   },
   setup(props) {

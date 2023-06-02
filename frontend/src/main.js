@@ -31,34 +31,38 @@ const store = createStore({
 		offChat(state) {
 			state.isChatOpen = false;
 		},
-		toggleHwDetails(state) {
-			state.hwDetailsShown = !state.hwDetailsShown;
+		toggleTimeline(state, id){
+			if (id === "hw") {
+        state.hwTimeLineShown = !state.hwTimeLineShown;
+      }
+      else if (id === "cst") {
+				state.cstTimeLineShown = !state.cstTimeLineShown;
+      }
+      else if (id === "fs") {
+        state.fsTimeLineShown = !state.fsTimeLineShown;
+      }
+			else{
+				state.hwTimeLineShown = !state.hwTimeLineShown;
+				state.cstTimeLineShown = !state.cstTimeLineShown;
+				state.fsTimeLineShown = !state.fsTimeLineShown;
+			}
 		},
-		toggleHwTimeLine(state) {
-			state.hwTimeLineShown = !state.hwTimeLineShown;
-		},
-		toggleFsDetails(state) {
-			state.fsDetailsShown = !state.fsDetailsShown;
-		},
-		toggleFsTimeLine(state) {
-			state.fsTimeLineShown = !state.fsTimeLineShown;
-		},
-		toggleCstDetails(state) {
-			state.cstDetailsShown = !state.cstDetailsShown;
-		},
-		toggleCstTimeLine(state) {
-			state.cstTimeLineShown = !state.cstTimeLineShown;
-		},
-		// toggleTimeline(state, id){
-		// 	state.hwTimeLineShown = !state.hwTimeLineShown;
-		// 	state.fsTimeLineShown = !state.fsTimeLineShown;
-		// 	state.cstTimeLineShown = !state.cstTimeLineShown;
-		// },
-		// toggleDetails(state, id){
-		// 	state.fsTimeLineShown = !state.fsTimeLineShown;
-		// 	state.cstDetailsShown = !state.cstDetailsShown;
-		// 	state.fsDetailsShown = !state.fsDetailsShown;
-		// }
+		toggleDetails(state, id){
+			if (id === "hw") {
+        state.hwDetailsShown = !state.hwDetailsShown;
+      }
+      else if (id === "cst") {
+				state.cstDetailsShown = !state.cstDetailsShown;
+      }
+      else if (id === "fs") {
+        state.fsDetailsShown = !state.fsDetailsShown;
+      }
+			else{
+				state.hwDetailsShown = !state.hwDetailsShown;
+				state.cstDetailsShown = !state.cstDetailsShown;
+				state.fsDetailsShown = !state.fsDetailsShown;
+			}
+		}
 	},
 });
 
@@ -76,8 +80,8 @@ app.use(router);
 app.use(vuetify);
 app.use(store);
 
-// app.config.compilerOptions.isCustomElement = (tagName) => {
-// 	return tagName === "vue-advanced-chat" || tagName === "emoji-picker";
-// };
+app.config.compilerOptions.isCustomElement = (tagName) => {
+	return tagName === "vue-advanced-chat" || tagName === "emoji-picker";
+};
 
 app.mount("#app");

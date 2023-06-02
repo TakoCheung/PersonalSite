@@ -61,10 +61,32 @@ export default {
   setup(props) {
     const store = useStore();
     const getDetailsShown = computed(() => {
-      return store.state.fsDetailsShown
+      if (props.id === "hw") {
+        return store.state.hwDetailsShown;
+      }
+      else if (props.id === "cst") {
+				return store.state.cstDetailsShown;
+      }
+      else if (props.id === "fs") {
+        return store.state.fsDetailsShown;
+      }
+			else{
+				return store.state.hwDetailsShown && store.state.cstDetailsShown && store.state.fsDetailsShown;
+			}
     });
     const getTimeLineShown = computed(() => {
-      return store.state.fsTimeLineShown
+      if (props.id === "hw") {
+        return store.state.hwTimeLineShown;
+      }
+      else if (props.id === "cst") {
+				return store.state.cstTimeLineShown;
+      }
+      else if (props.id === "fs") {
+        return store.state.fsTimeLineShown;
+      }
+			else{
+				return store.state.hwTimeLineShown && store.state.cstTimeLineShown && store.state.fsTimeLineShown;
+			}
     });
     const chartOptions = computed(() => {
       return ({
