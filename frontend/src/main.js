@@ -2,13 +2,11 @@ import { createApp } from "vue";
 import { createStore } from "vuex";
 import App from "@/App.vue";
 import router from "@/router/index";
-import Header from "v-header";
 import { GChart } from "vue-google-charts";
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-
 
 const store = createStore({
 	state: {
@@ -74,8 +72,6 @@ const vuetify = createVuetify({
 const app = createApp(App);
 
 app.use(GChart);
-app.use(Header);
-
 app.use(router);
 app.use(vuetify);
 app.use(store);
