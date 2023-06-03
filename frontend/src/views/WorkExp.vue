@@ -19,12 +19,11 @@
       />
     </v-row>
     <v-row dense>
-      <!-- <CstWorkExpCard /> -->
       <ExpCard 
         organization="CentralSquare Techolgies" 
         :start="cstStart"
         :end="cstEnd" 
-        :detail-card-height=286
+        :detail-card-height=246
         :time-line-card-height=256
         positionTitle="Software Developer III"
         shortDesc="• Implemented a secured web API using
@@ -41,20 +40,42 @@
       />
     </v-row>
     <v-row dense>
-      <HoneywellExpCard />
+      <ExpCard 
+        organization="Honeywell" 
+        :start="hwStart"
+        :end="hwEnd" 
+        :detail-card-height=546
+        :time-line-card-height=256
+        positionTitle="Software Developer (CO-OP)"
+        shortDesc="Requirement Analysis:
+        <p>• HTTPS became a requirement when we were designing the User Management Web App.</p>"
+        longDesc="Requirement Analysis:
+          <p>• HTTPS became a requirement when we were designing the User Management Web App.</p>
+          <p>Design:</p>
+          <p>• Eliminated the possibility of OS injection and improved the performance by using Ajax to upload the file,
+            parsing the file into binary without saving the file on the server.</p>
+          <p>• Cleaner and easier to maintain by following MVC for both frontend and backend</p>
+          <p>Implementation:</p>
+          <p>• Saved company about $100,000 by Implementing a single step firmware upgrade.</p>
+          <p>Testing:</p>
+          <p>• Speeded up the building process by 20% after Postman became the tool of integration testing.</p>
+          <p>Maintenance:</p>
+          <p>• Prevented introducing new implementation bug by integrating Fortify SCA scanning process into Gradle and
+            the Gradle script into the Jenkins pipeline.</p>
+          <p>• Reduced the deployment time by 50% by modifying the existing batch script.</p>"
+        pathToLogo="../../assets/hw.jpeg"
+        color-of-org="#ef3124"
+        id="hw"
+      />
     </v-row>
   </v-col>
 </template>
 
 <script>
-import HoneywellExpCard from './HoneywellExpCard'
-// import CstWorkExpCard from './CstWorkExpCard'
 import ExpCard from '@/components/Card/ExpCard.vue';
 export default {
   name: 'WorkExp',
   components: {
-    HoneywellExpCard,
-    // CstWorkExpCard,
     ExpCard
   },
   setup(){
