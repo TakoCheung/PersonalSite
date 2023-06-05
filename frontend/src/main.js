@@ -30,20 +30,16 @@ const store = createStore({
 			state.isChatOpen = false;
 		},
 		toggleTimeline(state, id){
+			console.log(id);
 			if (id === "hw") {
         state.hwTimeLineShown = !state.hwTimeLineShown;
       }
       else if (id === "cst") {
 				state.cstTimeLineShown = !state.cstTimeLineShown;
       }
-      else if (id === "fs") {
+      else {
         state.fsTimeLineShown = !state.fsTimeLineShown;
       }
-			else{
-				state.hwTimeLineShown = !state.hwTimeLineShown;
-				state.cstTimeLineShown = !state.cstTimeLineShown;
-				state.fsTimeLineShown = !state.fsTimeLineShown;
-			}
 		},
 		toggleDetails(state, id){
 			if (id === "hw") {
@@ -52,14 +48,9 @@ const store = createStore({
       else if (id === "cst") {
 				state.cstDetailsShown = !state.cstDetailsShown;
       }
-      else if (id === "fs") {
+      else{
         state.fsDetailsShown = !state.fsDetailsShown;
       }
-			else{
-				state.hwDetailsShown = !state.hwDetailsShown;
-				state.cstDetailsShown = !state.cstDetailsShown;
-				state.fsDetailsShown = !state.fsDetailsShown;
-			}
 		}
 	},
 });

@@ -1,11 +1,11 @@
 <template>
-  <v-col>
-    <v-row dense>
+  <v-row dense>
+    <v-col cols="12">
       <ExpCard 
         organization="Farragut Systems" 
         :start="fsStart"
         :end="fsEnd" 
-        :detail-card-height=226
+        :detail-card-height=266
         :time-line-card-height=256
         positionTitle="Software Developer"
         shortDesc="• Integrated Jenkins with MS Team to enable real-time notification for better CI monitoring."
@@ -17,13 +17,13 @@
         color-of-org="#d7332c"
         id="fs"
       />
-    </v-row>
-    <v-row dense>
+    </v-col>
+    <v-col cols="12">
       <ExpCard 
         organization="CentralSquare Techolgies" 
         :start="cstStart"
         :end="cstEnd" 
-        :detail-card-height=246
+        :detail-card-height=306
         :time-line-card-height=256
         positionTitle="Software Developer III"
         shortDesc="• Implemented a secured web API using
@@ -38,13 +38,13 @@
         color-of-org="#ef4b24"
         id="cst"
       />
-    </v-row>
-    <v-row dense>
+    </v-col>
+    <v-col cols="12">
       <ExpCard 
         organization="Honeywell" 
         :start="hwStart"
         :end="hwEnd" 
-        :detail-card-height=546
+        :detail-card-height=586
         :time-line-card-height=256
         positionTitle="Software Developer (CO-OP)"
         shortDesc="Requirement Analysis:
@@ -67,8 +67,8 @@
         color-of-org="#ef3124"
         id="hw"
       />
-    </v-row>
-  </v-col>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
