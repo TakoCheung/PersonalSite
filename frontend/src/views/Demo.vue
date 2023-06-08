@@ -8,6 +8,7 @@
       <SteeringComponent v-if="value == 'Kinetic'" />
       <MovementWander v-if="value == 'Wander'" />
       <MovementFlock v-if="value == 'Flock'" />
+      <PathGame v-if="value == 'Path'" />
     </v-col>
 
     <v-tooltip activator="parent" location="bottom">
@@ -27,6 +28,10 @@
         <p>Flock,</p>
         <p>Flock</p>
       </div>
+      <div v-if="value == 'Path'">
+        <p>Path,</p>
+        <p>Path</p>
+      </div>
     </v-tooltip>
 
   </v-row>
@@ -36,16 +41,18 @@ import MovementArrive from '../components/Demo/MovementArrive.vue'
 import SteeringComponent from '../components/Demo/SteeringComponent.vue'
 import MovementWander from '../components/Demo/MovementWander.vue'
 import MovementFlock from '../components/Demo/MovementFlock.vue'
+import PathGame from '../components/Demo/PathGame.vue'
 export default {
   name: 'ProjectDemo',
   components: {
     MovementArrive,
     SteeringComponent,
     MovementWander,
-    MovementFlock
+    MovementFlock,
+    PathGame
   },
   data: () => ({
-    items: ['Kinetic', 'Arrive', 'Wander', 'Flock'],
+    items: ['Kinetic', 'Arrive', 'Wander', 'Flock', 'Path'],
     value: 'Kinetic',
   }),
 
