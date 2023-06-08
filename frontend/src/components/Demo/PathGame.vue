@@ -16,19 +16,18 @@ export default {
     let count = 0;
     let desired = null;
     const side = 32;
-    let height = side * 15;
-    let width = side * 20;
+    let height = side * 20;
+    let width = side * 15;
     let pathC;
     let pfC;
     let root = null;
     let myList = [];
-    let p5Local = null;
 
     const Steering = function (x, y, p) {
       this.p = p;
-      this.acceleration = p5Local.createVector(0, 0);
-      this.location = this.pcreateVector(x, y);
-      this.velocity = this.pcreateVector(0, 0);
+      this.location = this.p.createVector(x, y);
+      this.velocity = this.p.createVector(0, 0);
+      this.acceleration = this.p.createVector(0, 0);
       this.orientation = 0;
       this.maxspeed = 1.0;
       this.maxforce = 0.1;
@@ -44,7 +43,7 @@ export default {
         let a = pathC.points[i];
         let b = pathC.points[i + 1];
         let normalPoint = this.getNormalPoint(predictpos, a, b);
-        if (normalPoint.x < p5Local.min(a.x, b.x) || normalPoint.x > p5Local.max(a.x, b.x) || normalPoint.y < p5Local.min(a.y, b.y) || normalPoint.y > p5Local.max(a.y, b.y)) {
+        if (normalPoint.x < this.p.min(a.x, b.x) || normalPoint.x > this.p.max(a.x, b.x) || normalPoint.y < this.p.min(a.y, b.y) || normalPoint.y > this.p.max(a.y, b.y)) {
           normalPoint = b.copy();
           a = pathC.points[(i + 1) % pathC.points.length];
           b = pathC.points[(i + 2) % pathC.points.length];  // Path wraps around
@@ -75,7 +74,7 @@ export default {
       let d = desired.mag();
       desired.normalize();
       if (d < 300) {
-        let m = p5Local.map(d, 0, 100, 0, this.maxspeed);
+        let m = this.p.map(d, 0, 100, 0, this.maxspeed);
         desired.mult(m);
       } else {
         desired.mult(this.maxspeed);
@@ -112,27 +111,27 @@ export default {
     }
     // Draw boid as a circle
     Steering.prototype.render = function () {
-      p5Local.noStroke();
-      p5Local.fill(135, 206, 250, 30);
+      this.p.noStroke();
+      this.p.fill(135, 206, 250, 30);
       for (let i = 0; i < this.history.length; i++) {
-        p5Local.radius1 = 5 + 5 * p5Local.sin(p5Local.frameCount-- * 0.05);
-        p5Local.radius2 = 5 + 5 * p5Local.sin(p5Local.frameCount-- * 0.05);
-        p5Local.fill(135, 206, 250, 70);
-        p5Local.ellipse(this.history[i].x, this.history[i].y, p5Local.radius1, p5Local.radius2);
-        p5Local.fill(99, 199, 178, 70);
-        p5Local.ellipse(p5Local.mouseX, p5Local.mouseY, p5Local.radius2, p5Local.radius1);
+        this.p.radius1 = 5 + 5 * this.p.sin(this.p.frameCount-- * 0.05);
+        this.p.radius2 = 5 + 5 * this.p.sin(this.p.frameCount-- * 0.05);
+        this.p.fill(135, 206, 250, 70);
+        this.p.ellipse(this.history[i].x, this.history[i].y, this.p.radius1, this.p.radius2);
+        this.p.fill(99, 199, 178, 70);
+        this.p.ellipse(this.p.mouseX, this.p.mouseY, this.p.radius2, this.p.radius1);
       }
-      this.orientation = p5Local.atan2(this.velocity.y, this.velocity.x) + p5Local.PI / 2;
-      p5Local.push();
-      p5Local.translate(this.location.x, this.location.y);
-      p5Local.rotate(this.orientation);
-      p5Local.noStroke();
-      p5Local.fill(135, 206, 250);
-      p5Local.triangle(10, -2, 0, -18, -10, -2);
-      p5Local.noStroke();
-      p5Local.fill(135, 206, 250);
-      p5Local.ellipse(0, 0, 20, 20);
-      p5Local.pop();
+      this.orientation = this.p.atan2(this.velocity.y, this.velocity.x) + this.p.PI / 2;
+      this.p.push();
+      this.p.translate(this.location.x, this.location.y);
+      this.p.rotate(this.orientation);
+      this.p.noStroke();
+      this.p.fill(135, 206, 250);
+      this.p.triangle(10, -2, 0, -18, -10, -2);
+      this.p.noStroke();
+      this.p.fill(135, 206, 250);
+      this.p.ellipse(0, 0, 20, 20);
+      this.p.pop();
     }
 
     const Tile = function (tx, ty, tid, p) {
@@ -156,22 +155,24 @@ export default {
       this.inClosedList = false;
     }
     Tile.prototype.render = function () {
-      // p5Local.noStroke();
-      if (this.isStart == true) p5Local.fill(0, 150, 0, 100);
-      else if (this.isEnd == true) p5Local.fill(150, 0, 0, 100);
-      else if (this.isPath == true) p5Local.noFill();
-      // else if (this.isWalked == true) { p5Local.stroke(50); p5Local.fill(80, 150, 200, 10); }
-      else if (this.isWall == true) p5Local.fill(150);
-      else if (this.isBlocked == true) p5Local.fill(255, 0, 0);
-      else p5Local.noFill();
-      p5Local.rectMode(p5Local.CENTER);
-      p5Local.rect(this.x, this.y, this.r, this.r);
+      this.p.noStroke();
+      if (this.isStart == true) this.p.fill(0, 150, 0, 100);
+      else if (this.isEnd == true) this.p.fill(150, 0, 0, 100);
+      else if (this.isPath == true) this.p.noFill();
+      else if (this.isWalked == true) { this.p.stroke(50); this.p.fill(80, 150, 200, 10); }
+      else if (this.isWall == true) this.p.fill(150);
+      else if (this.isBlocked == true) this.p.fill(255, 0, 0);
+      else this.p.noFill();
+      this.p.rectMode(this.p.CENTER);
+      // this.p.textSize(12);
+      // this.p.text(this.id, this.x, this.y, this.r, this.r)
+      this.p.rect(this.x, this.y, this.r, this.r);
     }
     Tile.prototype.calcHwithManhattan = function (n) {
-      this.f = parseInt(((p5Local.abs(this.x - n.x) + p5Local.abs(this.y - n.y)) / this.r));
+      this.f = parseInt(((this.p.abs(this.x - n.x) + this.p.abs(this.y - n.y)) / this.r));
     }
     Tile.prototype.calcHwithEuclidean = function (n) {
-      this.h = parseInt(p5Local.sqrt(p5Local.sq((this.x - n.x)) + p5Local.sq((this.y - n.y))));
+      this.h = parseInt(this.p.sqrt(this.p.sq((this.x - n.x)) + this.p.sq((this.y - n.y))));
     }
     Tile.prototype.calcF = function () {
       this.f = this.g + this.h;
@@ -186,7 +187,7 @@ export default {
       this.radius = 1;
     }
     Path.prototype.addPoint = function (x, y) {
-      let point = p5Local.createVector(x, y);
+      let point = this.p.createVector(x, y);
       this.points.push(point);
     }
     Path.prototype.render = function () {
@@ -202,14 +203,14 @@ export default {
       // // });
       // endShape();
       // Draw thin line for center of path
-      p5Local.stroke(0);
-      p5Local.strokeWeight(1);
-      p5Local.noFill();
-      p5Local.beginShape();
+      this.p.stroke(0);
+      this.p.strokeWeight(1);
+      this.p.noFill();
+      this.p.beginShape();
       for (let i in this.points) {
-        p5Local.vertex(this.points[i].x, this.points[i].y);
+        this.p.vertex(this.points[i].x, this.points[i].y);
       }
-      p5Local.endShape();
+      this.p.endShape();
     }
     Path.prototype.reverses = function () {
       let j = 0;
@@ -260,24 +261,24 @@ export default {
         myList[i].render();
     }
     PathFind.prototype.initializeNodes = function () {
-      this.setWall();
-      this.sta = parseInt(p5Local.random(0, myList.length - 1));
+      // this.setWall();
+      this.sta = parseInt(this.p.random(0, myList.length - 1));
       this.setStartNode();
       this.end = this.sta;
       while (this.sta == this.end)
-        this.end = parseInt(p5Local.random(0, myList.length - 1));
+        this.end = parseInt(this.p.random(0, myList.length - 1));
       this.setEndNode();
       this.timeP();
     }
     PathFind.prototype.setWall = function () {
-      let t = [21, 22, 23, 24, 25, 43, 63, 83, 103];
-      let a = [66, 86, 106, 87, 47, 68, 88, 108];
-      let k = [30, 50, 70, 90, 110, 71, 52, 92, 33, 113];
-      let o = [38, 37, 36, 35, 55, 75, 95, 115, 116, 117, 118, 98, 78, 58, 38];
-      let h = [163, 183, 203, 223, 243, 204, 205, 166, 186, 206, 226, 246];
-      let w = [168, 188, 208, 209, 229, 249, 230, 210, 190, 211, 231, 251, 212, 192, 172];
-      let three = [194, 175, 176, 197, 216, 237, 234, 255, 256];
-      let room = [57, 77, 97, 56, 76, 96, 67];
+      let t = [1];
+      let a = [10];
+      let k = [100];
+      let o = [200];
+      let h = [299];
+      let w = [150];
+      let three = [250];
+      let room = [50];
       for (let each in room) {
         myList[room[each]].isBlocked = true;
         myList[room[each]].inClosedList = true;
@@ -317,7 +318,7 @@ export default {
         this.endNode = myList[this.end];
       }
       else {
-        this.end = parseInt(p5Local.random(0, myList.length - 1));
+        this.end = parseInt(this.p.random(0, myList.length - 1));
         this.setEndNode();
       }
     }
@@ -329,7 +330,7 @@ export default {
         myList[this.sta].inOpenList = true;
       }
       else {
-        this.sta = parseInt(p5Local.random(0, myList.length - 1));
+        this.sta = parseInt(this.p.random(0, myList.length - 1));
         this.setStartNode();
       }
     }
@@ -346,8 +347,8 @@ export default {
     PathFind.prototype.isWallBothering = function (s, e) {
       for (let i = 0; i < myList.length; i++) {
         let n = myList[i];
-        let r1 = p5Local.dist(s.x, s.y, n.x, n.y);
-        let r2 = p5Local.dist(e.x, e.y, n.x, n.y);
+        let r1 = this.p.dist(s.x, s.y, n.x, n.y);
+        let r2 = this.p.dist(e.x, e.y, n.x, n.y);
         if (r1 == side && r2 == side && n.isWall == true) return true;
       }
       return false;
@@ -361,7 +362,7 @@ export default {
         myList[small].inClosedList = true;
         let n = myList[small];
         for (let i = 0; i < myList.length; i++) {
-          let dis = p5Local.dist(n.x, n.y, myList[i].x, myList[i].y);//api ref?
+          let dis = this.p.dist(n.x, n.y, myList[i].x, myList[i].y);//api ref?
           if (myList[i].isWall) continue;
           if (myList[i].isBlocked) continue;
           if (myList[i].inClosedList) continue;
@@ -418,16 +419,25 @@ export default {
     }
 
     const DecisionTarget = function (p) {
+      this.p = p;
       this.trueNode = new TrueTargetAction(p);
       this.falseNode = new FalseTargetAction();
+    }
+    DecisionTarget.prototype.getBranch = function () {
+      if (myList[parseInt(this.p.floor(ch.location.y / side)) * 15 + parseInt(this.p.floor(ch.location.x / side))].isEnd)
+        return this.trueNode;
+      else
+        return this.falseNode;
+    }
+    DecisionTarget.prototype.makeDecision = function () {
+      return this.getBranch().makeDecision();
     }
 
     const TrueTargetAction = function (p) {
       this.p = p;
     }
-
     TrueTargetAction.prototype.makeDecision = function () {
-      var here = parseInt(p5Local.random(0, 299));
+      var here = parseInt(this.p.random(0, 299));
       if (!myList[here].isWall && !myList[here].isBlocked && !myList[here].isEnd) {
         goTo(here, pfC);
         return true;
@@ -441,7 +451,6 @@ export default {
 
     const FalseTargetAction = function () {
     }
-
     FalseTargetAction.prototype.makeDecision = function () {
       ch.follow();
       return true;
@@ -456,9 +465,9 @@ export default {
         pfC.clearPathNodes(i);
       }
       //sta = endNode.id;
-      pfC.sta = parseInt(p5.floor(ch.location.y / side)) * 20 + parseInt(p5.floor(ch.location.x / side));
+      pfC.sta = parseInt(pfC.p.floor(ch.location.y / side)) * 15 + parseInt(pfC.p.floor(ch.location.x / side));
       pfC.walked = 0;
-      //updateNodes();
+      // updateNodes();
       pfC.setStartNode();
       pfC.setEndNode();
       pfC.timeP();
@@ -466,19 +475,18 @@ export default {
 
     const p5Sketch = (p) => {
       let c = 0;
-      p5Local = p;
       for (var j = side / 2; j < height; j += side)
         for (var i = side / 2; i < width; i += side) {
           myList.push(new Tile(i, j, c, p));
           c++;
         }
-      root = new DecisionTarget();
-      pathC = new Path();
-      pfC = new PathFind(pathC, );
+      p.createCanvas(640, 480);
+      root = new DecisionTarget(p);
+      pathC = new Path(p);
+      pfC = new PathFind(pathC, p);
       pfC.initializeNodes();
-      ch = new Steering(myList[pfC.sta].x, myList[pfC.sta].y);
-      target = p.createVector(20, 20);
-      count = 0;
+      ch = new Steering(myList[pfC.sta].x, myList[pfC.sta].y, p);
+      root = new DecisionTarget(p);
       // Here you can add your p.js sketch
       p.setup = function () {
         p.createCanvas(width, height);
@@ -498,7 +506,7 @@ export default {
       };
 
       p.mousePressed = function () {
-        var ended = p.parseInt(p.floor(p.mouseY / side)) * 20 + p.parseInt(p.floor(p.mouseX / side));
+        const ended = p.parseInt(p.floor(p.mouseY / side)) * 15 + parseInt(p.floor(p.mouseX / side));
         if (!myList[ended].isWall && !myList[ended].isBlocked) {
           goTo(ended);
         }

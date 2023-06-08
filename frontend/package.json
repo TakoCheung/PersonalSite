@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve --watch",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "reset": "rm -rf node_modules && rm -rf package-lock.json && npm i"
+    "reset": "rm -rf dist && rm -rf node_modules && rm -rf package-lock.json && npm i"
   },
   "dependencies": {
     "core-js": "^3.30.2",
