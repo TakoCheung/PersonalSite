@@ -29,8 +29,9 @@
         <p>Flock</p>
       </div>
       <div v-if="value == 'Path'">
-        <p>Path,</p>
-        <p>Path</p>
+        <p>The path finding algorithm is using Dijkstra's Shortest Path Algorithm.</p>
+        <p>The Boid will follow the path until it get to the end. Once it reach</p>
+        <p>the end, the desicision tree will de</p>
       </div>
     </v-tooltip>
 

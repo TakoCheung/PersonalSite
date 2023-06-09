@@ -10,19 +10,21 @@ export default {
   name: "PathGame",
   setup() {
     const canvasParent = ref(null);
+    const col = 15;
+    const row = 20
     let sketch = null;
     let ch = null;
     let target = null;
     let count = 0;
     let desired = null;
     const side = 32;
-    let height = side * 20;
-    let width = side * 15;
+    let height = side * row;
+    let width = side * col;
     let pathC;
     let pfC;
     let root = null;
     let myList = [];
-
+    
     const Steering = function (x, y, p) {
       this.p = p;
       this.location = this.p.createVector(x, y);
@@ -130,7 +132,7 @@ export default {
       this.p.triangle(10, -2, 0, -18, -10, -2);
       this.p.noStroke();
       this.p.fill(135, 206, 250);
-      this.p.ellipse(0, 0, 20, 20);
+      this.p.ellipse(0, 0, row, row);
       this.p.pop();
     }
 
@@ -155,7 +157,7 @@ export default {
       this.inClosedList = false;
     }
     Tile.prototype.render = function () {
-      this.p.noStroke();
+      this.p.noStroke(0);
       if (this.isStart == true) this.p.fill(0, 150, 0, 100);
       else if (this.isEnd == true) this.p.fill(150, 0, 0, 100);
       else if (this.isPath == true) this.p.noFill();
@@ -261,7 +263,7 @@ export default {
         myList[i].render();
     }
     PathFind.prototype.initializeNodes = function () {
-      // this.setWall();
+      this.setWall();
       this.sta = parseInt(this.p.random(0, myList.length - 1));
       this.setStartNode();
       this.end = this.sta;
@@ -271,17 +273,18 @@ export default {
       this.timeP();
     }
     PathFind.prototype.setWall = function () {
-      let t = [1];
-      let a = [10];
-      let k = [100];
-      let o = [200];
-      let h = [299];
-      let w = [150];
-      let three = [250];
-      let room = [50];
-      for (let each in room) {
-        myList[room[each]].isBlocked = true;
-        myList[room[each]].inClosedList = true;
+      let t = [0,1,2,16,31];
+      let a = [35,49,50,51,64,66];
+      let k = [68,70,83,84,98,100];
+      let o = [102,103,104,117,119,132,133,134];
+      let d = [135,136,150,152,165,167,180,181];
+      let e = [169,170,171,184,199,200,201,214,229,230,231];
+      let m = [203,205,218,219,220,233,248,235,250];
+      let o2 = [237,238,239,252,254,267,269,282,283,284];
+      let blocked = [118,151,166,253,268];
+      for (let each in blocked) {
+        myList[blocked[each]].isBlocked = true;
+        myList[blocked[each]].inClosedList = true;
       }
       for (let each in t) {
         myList[t[each]].isWall = true;
@@ -299,21 +302,25 @@ export default {
         myList[o[each]].isWall = true;
         myList[o[each]].inClosedList = true;
       }
-      for (let each in h) {
-        myList[h[each]].isWall = true;
-        myList[h[each]].inClosedList = true;
+      for (let each in o2) {
+        myList[o2[each]].isWall = true;
+        myList[o2[each]].inClosedList = true;
       }
-      for (let each in w) {
-        myList[w[each]].isWall = true;
-        myList[w[each]].inClosedList = true;
+      for (let each in d) {
+        myList[d[each]].isWall = true;
+        myList[d[each]].inClosedList = true;
       }
-      for (let each in three) {
-        myList[three[each]].isWall = true;
-        myList[three[each]].inClosedList = true;
+      for (let each in e) {
+        myList[e[each]].isWall = true;
+        myList[e[each]].inClosedList = true;
+      }
+      for (let each in m) {
+        myList[m[each]].isWall = true;
+        myList[m[each]].inClosedList = true;
       }
     }
     PathFind.prototype.setEndNode = function () {
-      if (myList[this.end].isWall == false && myList[this.end].isStart == false && !myList[this.end].isBlocked) {
+      if (myList[this.end].isWall == false && myList[this.end].isStart == false ) {
         myList[this.end].isEnd = true;
         this.endNode = myList[this.end];
       }
@@ -422,10 +429,15 @@ export default {
       this.p = p;
       this.trueNode = new TrueTargetAction(p);
       this.falseNode = new FalseTargetAction();
+      this.teleport = new TeleportAction(p);
     }
     DecisionTarget.prototype.getBranch = function () {
-      if (myList[parseInt(this.p.floor(ch.location.y / side)) * 15 + parseInt(this.p.floor(ch.location.x / side))].isEnd)
+      const curLocation = parseInt(this.p.floor(ch.location.y / side)) * col + parseInt(this.p.floor(ch.location.x / side));
+      if (myList[curLocation].isEnd)
         return this.trueNode;
+      else if( myList[pfC.end].isBlocked){
+        return this.teleport;
+      }
       else
         return this.falseNode;
     }
@@ -437,7 +449,7 @@ export default {
       this.p = p;
     }
     TrueTargetAction.prototype.makeDecision = function () {
-      var here = parseInt(this.p.random(0, 299));
+      var here = parseInt(this.p.random(0, myList.length - 1));
       if (!myList[here].isWall && !myList[here].isBlocked && !myList[here].isEnd) {
         goTo(here, pfC);
         return true;
@@ -456,6 +468,16 @@ export default {
       return true;
     }
 
+    const TeleportAction = function (p) {
+      this.p = p;
+    }
+    TeleportAction.prototype.makeDecision = function () {
+      const rand = parseInt(this.p.random(0, myList.length - 1));
+      ch = new Steering(myList[rand].x, myList[rand].y, this.p);
+      goTo(rand, pfC);
+      return true;
+    }
+
     function goTo(here) {
       pfC.clearStartNode(pfC.sta);
       pfC.clearEndNode(pfC.end);
@@ -465,7 +487,7 @@ export default {
         pfC.clearPathNodes(i);
       }
       //sta = endNode.id;
-      pfC.sta = parseInt(pfC.p.floor(ch.location.y / side)) * 15 + parseInt(pfC.p.floor(ch.location.x / side));
+      pfC.sta = parseInt(pfC.p.floor(ch.location.y / side)) * col + parseInt(pfC.p.floor(ch.location.x / side));
       pfC.walked = 0;
       // updateNodes();
       pfC.setStartNode();
@@ -506,8 +528,8 @@ export default {
       };
 
       p.mousePressed = function () {
-        const ended = p.parseInt(p.floor(p.mouseY / side)) * 15 + parseInt(p.floor(p.mouseX / side));
-        if (!myList[ended].isWall && !myList[ended].isBlocked) {
+        const ended = parseInt(p.floor(p.mouseY / side)) * col + parseInt(p.floor(p.mouseX / side));
+        if (!myList[ended].isWall) {
           goTo(ended);
         }
       };
