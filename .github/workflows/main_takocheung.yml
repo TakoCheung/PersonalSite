@@ -24,6 +24,9 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
+        
+      - name: CD front end
+        run: cd frontend
 
       - name: build fornt end
         run: npm run reset && npm run build
