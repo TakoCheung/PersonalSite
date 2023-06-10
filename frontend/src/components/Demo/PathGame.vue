@@ -161,7 +161,9 @@ export default {
       if (this.isStart == true) this.p.fill(0, 150, 0, 100);
       else if (this.isEnd == true) this.p.fill(150, 0, 0, 100);
       else if (this.isPath == true) this.p.noFill();
-      else if (this.isWalked == true) { this.p.stroke(50); this.p.fill(80, 150, 200, 10); }
+      else if (this.isWalked == true) { 
+        this.p.stroke(50); 
+        this.p.fill(255, 241, 0, 20); }
       else if (this.isWall == true) this.p.fill(150);
       else if (this.isBlocked == true) this.p.fill(255, 0, 0);
       else this.p.noFill();
