@@ -68,7 +68,7 @@ export default {
     }
   },
   beforeMount() {
-    // this.visited()
+    this.visited()
   }
 }
 </script>

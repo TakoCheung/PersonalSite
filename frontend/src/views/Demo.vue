@@ -25,8 +25,9 @@
         <p>and press any key to change different way to wander.</p>
       </div>
       <div v-if="value == 'Flock'">
-        <p>Flock,</p>
-        <p>Flock</p>
+        <p>Please click anywhere in canvas to drop a Boid.</p>
+        <p>Please drag to drop the Boids continuously.</p>
+        <p>It is computational expansive if you drop too many Boids in a canvas.</p>
       </div>
       <div v-if="value == 'Path'">
         <p>The path finding algorithm is using Dijkstra's Shortest Path Algorithm.</p>
