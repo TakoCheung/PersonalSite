@@ -21,8 +21,12 @@ jobs:
           submodules: true
       - uses: actions/checkout@master
       - uses: actions/setup-node@master 
-      - run: npm install
-      - run: npm run build
+      - name: Frontend build
+        working-directory: ./source/trunk/PersonalSite/frontend
+        run: |
+          npm install
+          npm install @vue/cli-service
+          npx -p @vue/cli vue-cli-service build --mode development
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
