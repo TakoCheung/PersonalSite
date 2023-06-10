@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master 
       - name: Frontend build
-        working-directory: ./source/trunk/PersonalSite/frontend
+        working-directory: frontend
         run: |
           npm install
           npm install @vue/cli-service
