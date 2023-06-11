@@ -37,6 +37,7 @@ jobs:
         with:
           name: fb
           path: dist/
+          working-directory: frontend
 
   deploy:
     runs-on: ubuntu-latest
