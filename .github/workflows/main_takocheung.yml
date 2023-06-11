@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: fb
-          path: dist/
+          path: frontend/dist
 
   deploy:
     runs-on: ubuntu-latest
