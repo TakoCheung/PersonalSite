@@ -10,11 +10,9 @@
 </template>
 
 <script>
-import { useStore } from 'vuex';
-import { computed } from 'vue';
 export default {
   name: 'CardFooter',
-  props: { id: String },
+  props: { id: String , timeLineShown: Boolean, detailsShown: Boolean},
   methods: {
     clickTimeLine() {
       if (this.detailsShown) {
@@ -28,32 +26,6 @@ export default {
       }
       this.$store.commit('toggleDetails', this.id);
     },
-  },
-  setup(props) {
-    const store = useStore();
-    const timeLineShown = computed(() => {
-      if (props.id === "hw") {
-        return store.state.hwTimeLineShown
-      }
-      else if (props.id === "cst") {
-        return store.state.cstTimeLineShown
-      }
-      else {
-        return store.state.fsTimeLineShown
-      }
-    });
-    const detailsShown = computed(() => {
-      if (props.id === "hw") {
-        return store.state.hwDetailsShown
-      }
-      else if (props.id === "cst") {
-        return store.state.cstDetailsShown
-      }
-      else {
-        return store.state.fsDetailsShown
-      }
-    });
-    return { timeLineShown, detailsShown };
   }
 }
 </script>

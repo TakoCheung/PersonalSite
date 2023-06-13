@@ -18,6 +18,8 @@ const store = createStore({
 		fsDetailsShown: false,
 		cstTimeLineShown: false,
 		cstDetailsShown: false,
+		wmtTimeLineShown: false,
+		wmtDetailsShown: false,
 	},
 	mutations: {
 		toggleNav(state) {
@@ -29,28 +31,37 @@ const store = createStore({
 		offChat(state) {
 			state.isChatOpen = false;
 		},
-		toggleTimeline(state, id){
-			console.log(id);
-			if (id === "hw") {
-        state.hwTimeLineShown = !state.hwTimeLineShown;
-      }
-      else if (id === "cst") {
-				state.cstTimeLineShown = !state.cstTimeLineShown;
-      }
-      else {
-        state.fsTimeLineShown = !state.fsTimeLineShown;
-      }
-		},
 		toggleDetails(state, id){
-			if (id === "hw") {
-        state.hwDetailsShown = !state.hwDetailsShown;
-      }
-      else if (id === "cst") {
-				state.cstDetailsShown = !state.cstDetailsShown;
-      }
-      else{
-        state.fsDetailsShown = !state.fsDetailsShown;
-      }
+			switch (id){
+				case "hw":
+					state.hwDetailsShown = !state.hwDetailsShown;
+					break
+				case "cst":
+					state.cstDetailsShown = !state.cstDetailsShown;
+					break
+				case "fs":
+					state.fsDetailsShown = !state.fsDetailsShown;
+					break
+				case "wmt":
+					state.wmtDetailsShown = !state.wmtDetailsShown;
+					break
+			}
+		},
+		toggleTimeline(state, id){
+			switch (id){
+				case "hw":
+					state.hwTimeLineShown = !state.hwTimeLineShown;
+					break
+				case "cst":
+					state.cstTimeLineShown = !state.cstTimeLineShown;
+					break
+				case "fs":
+					state.fsTimeLineShown = !state.fsTimeLineShown;
+					break
+				case "wmt":
+					state.wmtTimeLineShown = !state.wmtTimeLineShown;
+					break
+			}
 		}
 	},
 });

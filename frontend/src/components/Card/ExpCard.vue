@@ -15,14 +15,14 @@
       <v-list-item-subtitle>
         <span v-html="shortDesc"></span>
       </v-list-item-subtitle>
-      <CardFooter :id="id" />
+      <CardFooter :id="id" :timeLineShown="getTimeLineShown" :detailsShown="getDetailsShown"/>
     </v-list-item>
 
     <v-expand-transition>
       <v-card v-if="getTimeLineShown" class="transition-fast-in-fast-out v-card--reveal" style="height: 100%;">
         <v-list-item three-subtitle>
         <GChart :settings="{ packages: ['timeline'] }" type="Timeline" :data="chartData" :options="chartOptions" />
-        <CardFooter :id="id" />
+        <CardFooter :id="id" :timeLineShown="getTimeLineShown" :detailsShown="getDetailsShown"/>
       </v-list-item>
       </v-card>
     </v-expand-transition>
@@ -32,7 +32,7 @@
           <v-card-text class="pb-0">
             <span v-html="shortDesc + longDesc"></span>
           </v-card-text>
-          <CardFooter :id="id" />
+          <CardFooter :id="id" :timeLineShown="getTimeLineShown" :detailsShown="getDetailsShown"/>
         </v-list-item>
       </v-card>
     </v-expand-transition>
@@ -64,27 +64,33 @@ export default {
   },
   setup(props) {
     const store = useStore();
-    const getDetailsShown = computed(() => {
-      if (props.id === "hw") {
-        return store.state.hwDetailsShown;
-      }
-      else if (props.id === "cst") {
-        return store.state.cstDetailsShown;
-      }
-      else {
-        return store.state.fsDetailsShown;
-      }
-    });
     const getTimeLineShown = computed(() => {
-      if (props.id === "hw") {
-        return store.state.hwTimeLineShown;
-      }
-      else if (props.id === "cst") {
-        return store.state.cstTimeLineShown;
-      }
-      else {
-        return store.state.fsTimeLineShown;
-      }
+      switch (props.id){
+				case "hw":
+          return store.state.hwTimeLineShown
+				case "cst":
+          return store.state.cstTimeLineShown
+				case "fs":
+          return store.state.fsTimeLineShown
+				case "wmt":
+          return store.state.wmtTimeLineShown
+        default:
+          return false
+			}
+    });
+    const getDetailsShown = computed(() => {
+      switch (props.id){
+				case "hw":
+          return store.state.hwDetailsShown
+				case "cst":
+          return store.state.cstDetailsShown
+				case "fs":
+          return store.state.fsDetailsShown
+				case "wmt":
+          return store.state.wmtDetailsShown
+        default:
+          return false
+			}
     });
     const chartOptions = computed(() => {
       return ({
