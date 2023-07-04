@@ -201,10 +201,12 @@ export default {
       };
 
       p.mouseDragged = function () {
-        flock.addBoid(new Boid(p.mouseX,p.mouseY, p));
+        if(p.mouseX < width && p.mouseY < height && p.mouseX > 0 && p.mouseY > 0)
+          flock.addBoid(new Boid(p.mouseX,p.mouseY, p));
       };
       p.mousePressed = function () {
-        flock.addBoid(new Boid(p.mouseX,p.mouseY, p));
+        if(p.mouseX < width && p.mouseY < height && p.mouseX > 0 && p.mouseY > 0)
+          flock.addBoid(new Boid(p.mouseX,p.mouseY, p));
       };
     }
 

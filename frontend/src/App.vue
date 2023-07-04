@@ -1,6 +1,7 @@
 <template>
   <ProgressIndicator />
   <v-container>
+    <ChatWindow/>
     <div id="app">
       <nav class="main-nav">
         <Burger />
@@ -22,7 +23,6 @@
           </ul>
         </Sidebar>
       </nav>
-      <ChatIcon />
     </div>
   </v-container>
 </template>
@@ -30,16 +30,16 @@
 <script>
 import Burger from '@/components/Menu/burger-bar.vue';
 import Sidebar from '@/components/Menu/side-bar.vue';
-import ChatIcon from '@/components/ChatIcon.vue';
 import ProgressIndicator from "@/components/ProgressIndicator";
+import ChatWindow from '@/components/Chat/ChatWindow.vue';
 
 export default {
   name: 'app',
   components: {
     Sidebar,
     Burger,
-    ChatIcon,
-    ProgressIndicator
+    ProgressIndicator,
+    ChatWindow
   },
   methods: {
     toggle() {
@@ -279,5 +279,9 @@ button:focus {
   width: 100%;
   top: 0px;
   z-index: 100;
+}
+
+.sc-chat-window.opened{
+  z-index: 999;
 }
 </style>

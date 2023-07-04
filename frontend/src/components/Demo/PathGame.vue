@@ -530,9 +530,11 @@ export default {
       };
 
       p.mousePressed = function () {
-        const ended = parseInt(p.floor(p.mouseY / side)) * col + parseInt(p.floor(p.mouseX / side));
-        if (!myList[ended].isWall) {
-          goTo(ended);
+        if(p.mouseX < width && p.mouseY < height && p.mouseX > 0 && p.mouseY > 0){
+          const ended = parseInt(p.floor(p.mouseY / side)) * col + parseInt(p.floor(p.mouseX / side));
+          if (!myList[ended].isWall) {
+            goTo(ended);
+          }
         }
       };
 

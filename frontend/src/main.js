@@ -2,16 +2,16 @@ import { createApp } from "vue";
 import { createStore } from "vuex";
 import App from "@/App.vue";
 import router from "@/router/index";
+import { createVuetify } from "vuetify";
+import { VContainer, VCardActions, VBtn, VAvatar, VListItem, VExpandTransition, VCard, VCardText, VRow, VCol, VCombobox, VTooltip } from "vuetify/components";
+import * as directives from "vuetify/directives";
+import "vuetify/styles";
 import { GChart } from "vue-google-charts";
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+import VueBeatifulChat from "vue3-beautiful-chat";
 
 const store = createStore({
 	state: {
 		isNavOpen: false,
-		isChatOpen: false,
 		hwTimeLineShown: false,
 		hwDetailsShown: false,
 		fsTimeLineShown: false,
@@ -25,61 +25,52 @@ const store = createStore({
 		toggleNav(state) {
 			state.isNavOpen = !state.isNavOpen;
 		},
-		toggleChat(state) {
-			state.isChatOpen = !state.isChatOpen;
-		},
-		offChat(state) {
-			state.isChatOpen = false;
-		},
-		toggleDetails(state, id){
-			switch (id){
+		toggleDetails(state, id) {
+			switch (id) {
 				case "hw":
 					state.hwDetailsShown = !state.hwDetailsShown;
-					break
+					break;
 				case "cst":
 					state.cstDetailsShown = !state.cstDetailsShown;
-					break
+					break;
 				case "fs":
 					state.fsDetailsShown = !state.fsDetailsShown;
-					break
+					break;
 				case "wmt":
 					state.wmtDetailsShown = !state.wmtDetailsShown;
-					break
+					break;
 			}
 		},
-		toggleTimeline(state, id){
-			switch (id){
+		toggleTimeline(state, id) {
+			switch (id) {
 				case "hw":
 					state.hwTimeLineShown = !state.hwTimeLineShown;
-					break
+					break;
 				case "cst":
 					state.cstTimeLineShown = !state.cstTimeLineShown;
-					break
+					break;
 				case "fs":
 					state.fsTimeLineShown = !state.fsTimeLineShown;
-					break
+					break;
 				case "wmt":
 					state.wmtTimeLineShown = !state.wmtTimeLineShown;
-					break
+					break;
 			}
-		}
+		},
 	},
 });
 
 const vuetify = createVuetify({
-  components,
-  directives,
-})
+	components: { VContainer, VCardActions, VBtn, VAvatar, VListItem, VExpandTransition, VCard, VCardText, VRow, VCol, VCombobox, VTooltip} ,
+	directives,
+});
 
 const app = createApp(App);
 
+app.use(vuetify);
+app.use(VueBeatifulChat);
 app.use(GChart);
 app.use(router);
-app.use(vuetify);
 app.use(store);
-
-app.config.compilerOptions.isCustomElement = (tagName) => {
-	return tagName === "vue-advanced-chat" || tagName === "emoji-picker";
-};
 
 app.mount("#app");

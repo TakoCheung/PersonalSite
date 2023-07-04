@@ -181,7 +181,8 @@ export default {
       };
 
       p.mousePressed = function () {
-        debug = !debug;
+        if(p.mouseX < width && p.mouseY < height && p.mouseX > 0 && p.mouseY > 0)
+          debug = !debug;
       };
 
       p.keyPressed = function () {
