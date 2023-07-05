@@ -34,8 +34,8 @@ export default {
       participants: [
         {
           id: 'user1',
-          name: 'Matteo',
-          imageUrl: 'https://avatars3.githubusercontent.com/u/1915989?s=230&v=4'
+          name: 'Tako',
+          imageUrl: 'https://avatars.githubusercontent.com/u/16733130?v=4'
         },
         {
           id: 'user2',

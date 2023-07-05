@@ -3,7 +3,20 @@ import { createStore } from "vuex";
 import App from "@/App.vue";
 import router from "@/router/index";
 import { createVuetify } from "vuetify";
-import { VContainer, VCardActions, VBtn, VAvatar, VListItem, VExpandTransition, VCard, VCardText, VRow, VCol, VCombobox, VTooltip } from "vuetify/components";
+import {
+	VContainer,
+	VCardActions,
+	VBtn,
+	VAvatar,
+	VListItem,
+	VExpandTransition,
+	VCard,
+	VCardText,
+	VRow,
+	VCol,
+	VCombobox,
+	VTooltip,
+} from "vuetify/components";
 import * as directives from "vuetify/directives";
 import "vuetify/styles";
 import { GChart } from "vue-google-charts";
@@ -57,11 +70,39 @@ const store = createStore({
 					break;
 			}
 		},
+		sendMessage(state, data) {
+			fetch(
+				"https://api.telegram.org/bot315993652:AAER_pkBxCaLUvHnGhJLrXLR0oHQ0fHBEfM/sendMessage",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						chat_id: "@personalPageTako",
+						text: data,
+					}),
+				}
+			);
+		},
 	},
 });
 
 const vuetify = createVuetify({
-	components: { VContainer, VCardActions, VBtn, VAvatar, VListItem, VExpandTransition, VCard, VCardText, VRow, VCol, VCombobox, VTooltip} ,
+	components: {
+		VContainer,
+		VCardActions,
+		VBtn,
+		VAvatar,
+		VListItem,
+		VExpandTransition,
+		VCard,
+		VCardText,
+		VRow,
+		VCol,
+		VCombobox,
+		VTooltip,
+	},
 	directives,
 });
 
