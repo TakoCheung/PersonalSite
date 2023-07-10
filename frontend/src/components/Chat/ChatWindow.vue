@@ -27,26 +27,21 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: 'ChatWindow',
   data() {
     return {
       participants: [
         {
-          id: 'user1',
+          id: 'tako',
           name: 'Tako',
           imageUrl: 'https://avatars.githubusercontent.com/u/16733130?v=4'
-        },
-        {
-          id: 'user2',
-          name: 'Support',
-          imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
         }
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
       messageList: [
-          { type: 'text', author: `me`, data: { text: `Say yes!` } },
-          { type: 'text', author: `user1`, data: { text: `No.` } }
+          { type: 'text', author: `tako`, data: { text: `Welcome to my personal page.` } }
       ], // the list of the messages to show, can be paginated and adjusted dynamically
       newMessagesCount: 0,
       isChatOpen: false, // to determine whether the chat window should be open or closed
@@ -89,6 +84,7 @@ export default {
     onMessageWasSent (message) {
       // called when the user sends a message
       this.messageList = [ ...this.messageList, message ]
+      this.$store.commit('sendMessage', message);
     },
     openChat () {
       // called when the user clicks on the fab button to open the chat
@@ -110,7 +106,39 @@ export default {
       const m = this.messageList.find(m=>m.id === message.id);
       m.isEdited = true;
       m.data.text = message.data.text;
+    },
+    longPoll(state) {
+      axios.get(`https://api.telegram.org/${this.$store.state.botToken}/getUpdates`, {
+        params: {
+          offset: this.$store.state.lastUpdateId,
+          timeout: 60 // Wait for up to 60 seconds for new updates
+        }
+      })
+        .then(response => {
+          this.updates = response.data.result;
+					console.log(this.updates);
+          if (this.updates.length > 0) {
+            // Get the ID of the last update, so we can ask for updates after this the next time
+            this.$store.state.lastUpdateId = this.updates[this.updates.length - 1].update_id;
+
+            // Start a new poll with the last update ID
+            this.longPoll();
+          } else {
+            // If there were no new updates, start a new poll without changing the offset
+            this.longPoll();
+          }
+        })
+        .catch(error => {
+          console.error(error);
+
+          // If an error occurred, start a new poll after a delay
+          setTimeout(() => this.longPoll(state.lastUpdateId), 5000);
+        });
     }
+  },
+  created() {
+    // Start polling when the component is created
+    this.longPoll();
   }
 }
 </script>

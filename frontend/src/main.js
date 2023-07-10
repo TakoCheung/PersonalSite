@@ -33,6 +33,8 @@ const store = createStore({
 		cstDetailsShown: false,
 		wmtTimeLineShown: false,
 		wmtDetailsShown: false,
+		botToken: 'bot315993652:AAER_pkBxCaLUvHnGhJLrXLR0oHQ0fHBEfM',
+		lastUpdateId: 0
 	},
 	mutations: {
 		toggleNav(state) {
@@ -72,7 +74,7 @@ const store = createStore({
 		},
 		sendMessage(state, data) {
 			fetch(
-				"https://api.telegram.org/bot315993652:AAER_pkBxCaLUvHnGhJLrXLR0oHQ0fHBEfM/sendMessage",
+				`https://api.telegram.org/${state.botToken}/sendMessage`,
 				{
 					method: "POST",
 					headers: {
