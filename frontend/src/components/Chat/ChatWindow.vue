@@ -119,14 +119,11 @@ export default {
 					console.log(this.updates);
           if (this.updates.length > 0) {
             // Get the ID of the last update, so we can ask for updates after this the next time
-            this.$store.state.lastUpdateId = this.updates[this.updates.length - 1].update_id;
-
-            // Start a new poll with the last update ID
-            this.longPoll();
-          } else {
-            // If there were no new updates, start a new poll without changing the offset
-            this.longPoll();
+            this.$store.state.lastUpdateId = this.updates[this.updates.length - 1].update_id + 1;
+            const message = { type: 'text', author: 'tako', data: { text: `${this.updates[0].channel_post.text}` } }
+            this.messageList = [ ...this.messageList, message ]
           }
+          this.longPoll();
         })
         .catch(error => {
           console.error(error);
