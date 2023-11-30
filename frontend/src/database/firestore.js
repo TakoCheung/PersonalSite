@@ -204,7 +204,7 @@ export const getMessage = (roomId, messageId) => {
 
 export const addMessage = async (roomId, data) => {
 	await fetch(
-		"https://api.telegram.org/bot315993652:AAER_pkBxCaLUvHnGhJLrXLR0oHQ0fHBEfM/sendMessage",
+		"https://api.telegram.org/${token}/sendMessage",
 		{
 			method: "POST",
 			headers: {
