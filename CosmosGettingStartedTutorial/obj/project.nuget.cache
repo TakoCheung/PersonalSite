@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Z977seUI28wcJzxLayBkar6XSxhncc0nUmtkDTFx3T0TLChxY9OXHurGu/Qo/hg3RQFiIhV0DinxPuyBnLX3HA==",
+  "dgSpecHash": "2gEGBFb2uSkDFiqbzN2vlDqvtMo+5GEJTx8nW5tF/BMU471PL9nOFnzsIkHFtxq8GXK3wM/j3kDwFIdZR5rBew==",
   "success": true,
-  "projectFilePath": "/Users/takocheung/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
+  "projectFilePath": "/Users/takocheung/Repo/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
   "expectedPackageFiles": [
     "/Users/takocheung/.nuget/packages/microsoft.azure.cosmos/3.12.0/microsoft.azure.cosmos.3.12.0.nupkg.sha512",
     "/Users/takocheung/.nuget/packages/microsoft.csharp/4.3.0/microsoft.csharp.4.3.0.nupkg.sha512",

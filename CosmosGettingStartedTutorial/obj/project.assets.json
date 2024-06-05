@@ -5850,11 +5850,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/takocheung/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
+      "projectUniqueName": "/Users/takocheung/Repo/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
       "projectName": "CosmosGettingStarted",
-      "projectPath": "/Users/takocheung/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
+      "projectPath": "/Users/takocheung/Repo/PersonalSite/CosmosGettingStartedTutorial/CosmosGettingStarted.csproj",
       "packagesPath": "/Users/takocheung/.nuget/packages/",
-      "outputPath": "/Users/takocheung/PersonalSite/CosmosGettingStartedTutorial/obj/",
+      "outputPath": "/Users/takocheung/Repo/PersonalSite/CosmosGettingStartedTutorial/obj/",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "configFilePaths": [

@@ -27,13 +27,11 @@ const store = createStore({
 		isNavOpen: false,
 		hwTimeLineShown: false,
 		hwDetailsShown: false,
-		fsTimeLineShown: false,
-		fsDetailsShown: false,
 		cstTimeLineShown: false,
 		cstDetailsShown: false,
 		wmtTimeLineShown: false,
 		wmtDetailsShown: false,
-		botToken: '',
+		botToken: 'bot315993652:AAER_pkBxCaLUvHnGhJLrXLR0oHQ0fHBEfM',
 		lastUpdateId: 0
 	},
 	mutations: {
