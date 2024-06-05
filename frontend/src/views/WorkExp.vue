@@ -60,7 +60,7 @@ export default {
   setup() {
     const today = new Date(Date.now());
     const walmarStart = new Date(2022, 4, 4);
-    const cstEnd = new Date(2021, 1, 4);
+    const cstEnd = new Date(2022, 4, 4);
     const cstStart = new Date(2018, 5, 4);
     const hwEnd = new Date(2018, 5, 4);
     const hwStart = new Date(2016, 1, 4);
