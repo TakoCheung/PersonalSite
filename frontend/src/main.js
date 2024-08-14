@@ -31,7 +31,7 @@ const store = createStore({
 		cstDetailsShown: false,
 		wmtTimeLineShown: false,
 		wmtDetailsShown: false,
-		botToken: process.env.BOT_TOKEN,
+		botToken: process.env.VUE_APP_SECRET,
 		lastUpdateId: 0
 	},
 	mutations: {
