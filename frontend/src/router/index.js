@@ -3,24 +3,25 @@ import About from "../views/AboutMe.vue";
 import MyEducation from "../views/MyEducation.vue";
 import WorkExpriences from "../views/WorkExp.vue";
 import ProjectDemo from "../views/Demo.vue";
+import Certs from "@/views/Certs.vue";
 
 const routes = [
 	{
 		path: "/",
-		redirect: "/about"
+		redirect: "/About"
 	},
 	{
-		path: "/about",
+		path: "/About",
 		name: "About",
 		component: About,
 	},
 	{
-		path: "/education",
+		path: "/Education",
 		name: "MyEducation",
 		component: MyEducation,
 	},
 	{
-		path: "/WorkExpriences",
+		path: "/Exprience",
 		name: "WorkExpriences",
 		component: WorkExpriences,
 	},
@@ -29,6 +30,11 @@ const routes = [
 		name: "Demo",
 		component: ProjectDemo,
 	},
+	{
+		path: "/Certs",
+		name: "Certs",
+		component: Certs,
+	}
 ];
 
 const router = createRouter({

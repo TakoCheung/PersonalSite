@@ -9,16 +9,19 @@
         <Sidebar>
           <ul class="sidebar-panel-nav">
             <li @click="toggle">
-              <router-link to="/about">About</router-link>
+              <router-link to="/About">About</router-link>
             </li>
             <li @click="toggle">
-              <router-link to="/education">Education</router-link>
+              <router-link to="/Education">Education</router-link>
             </li>
             <li @click="toggle">
-              <router-link to="/WorkExpriences">Work Expriences</router-link>
+              <router-link to="/Exprience">Exprience</router-link>
             </li>
             <li @click="toggle">
               <router-link to="/Demo">Demo</router-link>
+            </li>
+            <li @click="toggle">
+              <router-link to="/Certs">Certificates</router-link>
             </li>
           </ul>
         </Sidebar>
