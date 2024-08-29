@@ -79,7 +79,7 @@ body {
   font-family: 'Lato';
   height: 100%;
   background: rgba(32, 77, 72, 50%)
-    /*linear-gradient(45deg, rgba(101,31,87,1) 0%, rgba(225,113,87,5) 48%, rgba(249,248,113,1) 100%);*/
+    /* linear-gradient(45deg, rgba(101,31,87,1) 0%, rgba(225,113,87,5) 48%, rgba(249,248,113,1) 100%); */
 }
 
 .logo {

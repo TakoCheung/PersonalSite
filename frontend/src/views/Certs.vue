@@ -1,7 +1,12 @@
 <template>
   <div>
     <!-- <PDFViewer source=../../assets/Certificate_9865283_08282024.pdf style="height: auto; width: auto" /> -->
-    <PDF src="../../assets/Certificate_9865283_08282024.pdf"/>
+    <v-row class="about">
+      <v-col >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</v-col>
+      <v-col cols="12">
+        <PDF src="../../assets/Certificate_9865283_08282024.pdf" />
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script>
