@@ -33,7 +33,7 @@ const props = defineProps({
     default: 0.2,
   },
 });
-const isMute = ref(false);
+const isMute = ref(true);
 const text = ref(props.text);
 
 const handleMuteUnmute = (e) => {
@@ -49,6 +49,7 @@ const handleSpeak = (text) => {
   }
   if (!isMute.value) {
     const utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = window.speechSynthesis.getVoices().filter(v=>v.lang=='en-US'&&v.name.match(/Eddy/))[0];
     window.speechSynthesis.speak(utterance);
   } else {
     window.speechSynthesis.cancel();
