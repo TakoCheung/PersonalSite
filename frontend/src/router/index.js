@@ -4,6 +4,7 @@ import MyEducation from "../views/MyEducation.vue";
 import WorkExpriences from "../views/WorkExp.vue";
 import ProjectDemo from "../views/Demo.vue";
 import Certs from "@/views/Certs.vue";
+import Resume from "@/views/Resume.vue";
 
 const routes = [
 	{
@@ -34,6 +35,11 @@ const routes = [
 		path: "/Certs",
 		name: "Certs",
 		component: Certs,
+	},
+	{
+		path: "/Resume",
+		name: "Resume",
+		component: Resume,
 	}
 ];
 

@@ -23,6 +23,9 @@
             <li @click="toggle">
               <router-link to="/Certs">Certificates</router-link>
             </li>
+            <li @click="toggle">
+              <router-link to="/Resume">Resume</router-link>
+            </li>
           </ul>
         </Sidebar>
       </nav>
