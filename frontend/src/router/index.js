@@ -5,6 +5,7 @@ import WorkExpriences from "../views/WorkExp.vue";
 import ProjectDemo from "../views/Demo.vue";
 import Certs from "@/views/Certs.vue";
 import Resume from "@/views/Resume.vue";
+import QrCode from "@/views/QrCode.vue";
 
 const routes = [
 	{
@@ -40,6 +41,11 @@ const routes = [
 		path: "/Resume",
 		name: "Resume",
 		component: Resume,
+	},
+	{
+		path: "/QrCode",
+		name: "QrCode",
+		component: QrCode,
 	}
 ];
 

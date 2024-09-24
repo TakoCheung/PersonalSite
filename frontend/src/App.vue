@@ -26,6 +26,9 @@
             <li @click="toggle">
               <router-link to="/Resume">Resume</router-link>
             </li>
+            <li @click="toggle">
+              <router-link to="/QRcode">QR Code</router-link>
+            </li>
           </ul>
         </Sidebar>
       </nav>
