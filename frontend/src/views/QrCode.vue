@@ -123,5 +123,67 @@ export default {
 </script>
 
 <style scoped>
-/* Add any styles if needed */
+body {
+  background-color: rgba(32, 77, 72, 0.5); /* The background color from your request */
+  font-family: 'Arial', sans-serif;
+  color: #f0f0f0; /* Light text for contrast */
+  text-align: center;
+}
+
+h1 {
+  color: #000000; /* Darker header for contrast */
+  font-size: 2em;
+  font-weight: bold;
+}
+
+label {
+  font-size: 1.2em;
+  color: #f0f0f0; /* Matching the text color */
+}
+
+input[type="text"] {
+  padding: 8px;
+  border: 2px solid rgba(32, 77, 72, 0.8);
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #204d48;
+  font-size: 1em;
+  margin-bottom: 20px;
+  width: 60%;
+}
+
+select {
+  padding: 8px;
+  border: 2px solid rgba(32, 77, 72, 0.8);
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #204d48;
+  font-size: 1em;
+}
+
+button {
+  background-color: rgba(32, 77, 72, 0.8);
+  color: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(32, 77, 72, 1);
+}
+
+input[type="file"] {
+  padding: 10px;
+  font-size: 1em;
+  color: #204d48;
+}
+
+#qrcode {
+  margin-top: 20px;
+}
+
+
 </style>
