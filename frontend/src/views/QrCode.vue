@@ -11,9 +11,11 @@
       <!-- Input to upload an image file -->
       <label for="fileUpload">Upload File To The List:</label>
       <input type="file" id="fileUpload" @change="handleImageUpload" accept="image/*" />
-      <select v-model="selectedImage" id="imageDropdown">
-        <option v-for="(img, index) in imageList" :key="index" :value="img.data">{{ img.name }}</option>
-      </select>
+      <div class="select-wrapper">
+        <select v-model="selectedImage" id="imageDropdown">
+          <option v-for="(img, index) in imageList" :key="index" :value="img.data">{{ img.name }}</option>
+        </select>
+      </div>
 
       <!-- Display the QR code -->
       <br />
@@ -39,37 +41,30 @@ export default {
       imageList: [],
     };
   },
-  mounted() {
-    this.loadPredefinedImages();
+  async mounted() {
+    await this.loadPredefinedImages();
     this.loadImagesFromLocalStorage();
   },
   methods: {
-    loadPredefinedImages() {
-      const predefinedImages = [
-        {
-          name: "Facebook",
-          data: require("@/../public/assets/facebook.png"),
-        },
-        {
-          name: "Instagram",
-          data: require("@/../public/assets/Instagram.png"),
-        },
-        {
-          name: "Yelp",
-          data: require("@/../public/assets/yelp.png"),
-        },
-        {
-          name: "X",
-          data: require("@/../public/assets/x.png"),
-        },
-        {
-          name: "LinkedIn",
-          data: require("@/../public/assets/linkedin.png"),
-        },
-        // Add more predefined images here
+    async loadPredefinedImages() {
+      const predefinedFiles = [
+        "facebook.png",
+        "Instagram.png",
+        "yelp.png",
+        "linkedin.png",
+        "x.png"
       ];
 
-      this.imageList = [...predefinedImages];
+      // Use Promise.all to await all async image loads
+      const imagePromises = predefinedFiles.map(async (file) => {
+        const name = file.split(".")[0]; // Get the file name without the extension
+        const imageUrl = require(`@/../public/assets/predefined/${file}`);
+        
+        return { name, data: imageUrl };
+      });
+
+      // Wait for all promises to resolve and then update the imageList
+      this.imageList = await Promise.all(imagePromises);
     },
     loadImagesFromLocalStorage() {
       const userImages = JSON.parse(localStorage.getItem("imageList")) || [];
@@ -269,5 +264,50 @@ button {
 .form-group {
   width: 100%;
   max-width: 400px;
+}
+
+/* Container to wrap the select dropdown */
+.select-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  /* Adjust based on your layout */
+}
+
+.select-wrapper select {
+  appearance: none;
+  /* Remove default select arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #f0f0f0;
+  /* Background color for the dropdown */
+  color: #204d48;
+  padding: 10px;
+  width: 100%;
+  font-size: 1em;
+  border: 2px solid rgba(32, 77, 72, 0.8);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Triangle added to the right of the select box */
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid rgba(32, 77, 72, 0.8);
+  /* Color for the triangle */
+  pointer-events: none;
+  /* Allows click-through to the select */
+}
+
+.select-wrapper select:focus {
+  border-color: rgba(32, 77, 72, 1);
 }
 </style>
