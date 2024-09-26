@@ -18,7 +18,12 @@ export default {
         {
           id: 'tako',
           name: 'Tako',
-          imageUrl: 'https://avatars.githubusercontent.com/u/16733130?v=4'
+          imageUrl: '../../assets/self.png'
+        },
+        {
+          id: 'boardcast',
+          name: 'Boardcast',
+          imageUrl: '../../assets/megaphone.svg'
         }
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
@@ -113,6 +118,11 @@ export default {
       m.isEdited = true;
       m.data.text = message.data.text;
     },
+    messageFromTelgram(update, author) {
+      const message = { type: 'text', author: author, data: { text: update.text } }
+      this.messageList = [...this.messageList, message]
+      this.saveMessagesToStorage()
+    },
     longPoll() {
       axios.get(`https://api.telegram.org/${this.$store.state.botToken}/getUpdates`, {
         params: {
@@ -123,15 +133,23 @@ export default {
         .then(response => {
           this.updates = response.data.result;
           if (this.updates.length > 0) {
+            const update = this.updates[0].channel_post;
             this.$store.commit('setLastUpdateId', this.updates[this.updates.length - 1].update_id + 1);
-            const message = { type: 'text', author: 'tako', data: { text: `${this.updates[0].channel_post.text}` } }
-            this.messageList = [...this.messageList, message]
-            this.saveMessagesToStorage()
+            if (Object.prototype.hasOwnProperty.call(update, "reply_to_message")) {
+              const userName = this.getUsername();
+              const senderJson = JSON.parse(this.updates[0].channel_post.reply_to_message.text);
+              if (senderJson.sender == userName) {
+                this.messageFromTelgram(update, 'tako')
+              }
+            }
+            else {
+              this.messageFromTelgram(update, 'boardcast')
+            }
           }
           this.longPoll();
         })
         .catch(error => {
-          console.error(error);
+          if (error.status != 409) console.error(error);
 
           // If an error occurred, start a new poll after a delay
           setTimeout(() => this.longPoll(), 5000);
