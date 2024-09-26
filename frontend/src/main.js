@@ -85,6 +85,9 @@ const store = createStore({
 				}
 			);
 		},
+		setLastUpdateId(state, updateId) {
+      state.lastUpdateId = updateId;
+    },
 	},
 });
 
