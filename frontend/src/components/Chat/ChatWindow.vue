@@ -62,14 +62,14 @@ export default {
     }
   },
   methods: {
-    // getClientId() {
-    //   let clientId = localStorage.getItem('clientId');
-    //   if (!clientId) {
-    //     clientId = '_' + Math.random().toString(36).substr(2, 9);
-    //     localStorage.setItem('clientId', clientId);
-    //   }
-    //   return clientId;
-    // },
+    getClientId() {
+      let clientId = localStorage.getItem('clientId');
+      if (!clientId) {
+        clientId = '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('clientId', clientId);
+      }
+      return clientId;
+    },
     getUsername() {
       let username = localStorage.getItem('username');
       if (!username) {
@@ -93,6 +93,7 @@ export default {
       // called when the user sends a message
       this.messageList = [...this.messageList, message]
       message.sender = localStorage.getItem('username');
+      message.clientId = localStorage.getItem('clientId');
       this.$store.commit('sendMessage', message);
       this.saveMessagesToStorage();
     },
@@ -136,9 +137,8 @@ export default {
             const update = this.updates[0].channel_post;
             this.$store.commit('setLastUpdateId', this.updates[this.updates.length - 1].update_id + 1);
             if (Object.prototype.hasOwnProperty.call(update, "reply_to_message")) {
-              const userName = this.getUsername();
               const senderJson = JSON.parse(this.updates[0].channel_post.reply_to_message.text);
-              if (senderJson.sender == userName) {
+              if (senderJson.sender == this.getUsername() && senderJson.clientId == this.getClientId()) {
                 this.messageFromTelgram(update, 'tako')
               }
             }
@@ -158,6 +158,7 @@ export default {
   },
   created() {
     // Start polling when the component is created
+    this.getClientId();
     this.messageList = this.loadMessagesFromStorage();
     this.longPoll();
   }
