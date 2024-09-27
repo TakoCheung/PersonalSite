@@ -23,13 +23,13 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         env:
           VUE_APP_SECRET: ${{ secrets.BOT_TOKEN }}
-          VUE_APP_FIREBASE_API_KEY: ${{secrets.VUE_APP_FIREBASE_API_KEY}}
-          VUE_APP_FIREBASE_AUTH_DOMAIN: ${{secrets.VUE_APP_FIREBASE_AUTH_DOMAIN}}
-          VUE_APP_FIREBASE_PROJECT_ID: ${{secrets.VUE_APP_FIREBASE_PROJECT_ID}}
-          VUE_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.VUE_APP_FIREBASE_STORAGE_BUCKET}}
-          VUE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{secrets.VUE_APP_FIREBASE_MESSAGING_SENDER_ID}}
-          VUE_APP_FIREBASE_APP_ID: ${{secrets.VUE_APP_FIREBASE_APP_ID}}
-          VUE_APP_FIREBASE_MEASUREMENT_ID: ${{secrets.VUE_APP_FIREBASE_MEASUREMENT_ID}}
+          VUE_APP_FIREBASE_API_KEY: ${{ secrets.VUE_APP_FIREBASE_API_KEY }}
+          VUE_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.VUE_APP_FIREBASE_AUTH_DOMAIN }}
+          VUE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VUE_APP_FIREBASE_PROJECT_ID }}
+          VUE_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.VUE_APP_FIREBASE_STORAGE_BUCKET }}
+          VUE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VUE_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          VUE_APP_FIREBASE_APP_ID: ${{ secrets.VUE_APP_FIREBASE_APP_ID }}
+          VUE_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.VUE_APP_FIREBASE_MEASUREMENT_ID }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_DUNE_08FF5920F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
