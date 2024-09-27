@@ -15,25 +15,20 @@ import {
 	onSnapshot,
 	orderBy,
 	query,
-	setDoc,
+	// setDoc,
 	startAfter,
 	startAt,
 	updateDoc,
-	where,
+	// where,
 } from "firebase/firestore";
 
-const USERS_PATH = "users";
-const ROOMS_PATH = "chatRooms";
 const MESSAGES_PATH = "messages";
 const MESSAGE_PATH = (roomId) => {
-	return `${ROOMS_PATH}/${roomId}/${MESSAGES_PATH}`;
+	return `${MESSAGES_PATH}/${roomId}`;
 };
 
 const TIMESTAMP_FIELD = "timestamp";
-const LAST_UPDATED_FIELD = "lastUpdated";
-const TYPING_USERS_FIELD = "typingUsers";
 const MESSAGE_REACTIONS_FIELD = "reactions";
-const ROOM_USERS_FIELD = "users";
 
 export const firestoreListener = onSnapshot;
 export const deleteDbField = deleteField();
@@ -44,16 +39,12 @@ const getDocuments = (query) => {
 	});
 };
 
-const getDocument = (ref) => {
-	return getDoc(ref).then((doc) => formatQueryDataObject(doc));
-};
+// const getDocument = (ref) => {
+// 	return getDoc(ref).then((doc) => formatQueryDataObject(doc));
+// };
 
 const addDocument = (ref, data) => {
 	return addDoc(ref, data);
-};
-
-const setDocument = (path, docId, data) => {
-	return setDoc(doc(firestoreDb, path, docId), data);
 };
 
 const updateDocument = (ref, data) => {
@@ -64,115 +55,18 @@ const deleteDocument = (ref, docId) => {
 	return deleteDoc(doc(firestoreDb, ref, docId));
 };
 
-// USERS
-const usersRef = collection(firestoreDb, USERS_PATH);
-
-const userRef = (userId) => {
-	return doc(firestoreDb, USERS_PATH, userId);
-};
-
-export const getAllUsers = () => {
-	return getDocuments(query(usersRef));
-};
-
-export const getUser = (userId) => {
-	return getDocument(userRef(userId));
-};
-
-export const addUser = (data) => {
-	return addDocument(usersRef, data);
-};
-
-export const addIdentifiedUser = (userId, data) => {
-	return setDocument(USERS_PATH, userId, data);
-};
-
-export const updateUser = (userId, data) => {
-	return updateDocument(userRef(userId), data);
-};
-
-export const deleteUser = (userId) => {
-	return deleteDocument(USERS_PATH, userId);
-};
-
-// ROOMS
-const roomsRef = collection(firestoreDb, ROOMS_PATH);
-
-const roomRef = (roomId) => {
-	return doc(firestoreDb, ROOMS_PATH, roomId);
-};
-
-export const roomsQuery = (currentUserId, roomsPerPage, lastRoom) => {
-	if (lastRoom) {
-		return query(
-			roomsRef,
-			where(USERS_PATH, "array-contains", currentUserId),
-			orderBy(LAST_UPDATED_FIELD, "desc"),
-			limit(roomsPerPage),
-			startAfter(lastRoom)
-		);
-	} else {
-		return query(
-			roomsRef,
-			where(USERS_PATH, "array-contains", currentUserId),
-			orderBy(LAST_UPDATED_FIELD, "desc"),
-			limit(roomsPerPage)
-		);
-	}
-};
-
-export const getAllRooms = () => {
-	return getDocuments(query(roomsRef));
-};
-
-export const getRooms = (query) => {
-	return getDocuments(query);
-};
-
-export const addRoom = (data) => {
-	return addDocument(roomsRef, data);
-};
-
-export const updateRoom = (roomId, data) => {
-	return updateDocument(roomRef(roomId), data);
-};
-
-export const deleteRoom = (roomId) => {
-	return deleteDocument(ROOMS_PATH, roomId);
-};
-
-export const getUserRooms = (currentUserId, userId) => {
-	return getDocuments(
-		query(roomsRef, where(USERS_PATH, "==", [currentUserId, userId]))
-	);
-};
-
-export const addRoomUser = (roomId, userId) => {
-	return updateRoom(roomId, {
-		[ROOM_USERS_FIELD]: arrayUnion(userId),
-	});
-};
-
-export const removeRoomUser = (roomId, userId) => {
-	return updateRoom(roomId, {
-		[ROOM_USERS_FIELD]: arrayRemove(userId),
-	});
-};
-
-export const updateRoomTypingUsers = (roomId, currentUserId, action) => {
-	const arrayUpdate =
-		action === "add" ? arrayUnion(currentUserId) : arrayRemove(currentUserId);
-
-	return updateRoom(roomId, { [TYPING_USERS_FIELD]: arrayUpdate });
-};
-
 // MESSAGES
-const messagesRef = (roomId) => {
-	return collection(firestoreDb, MESSAGE_PATH(roomId));
+
+const messagesRef = () => {
+	return collection(firestoreDb, MESSAGES_PATH);
 };
 
-const messageRef = (roomId, messageId) => {
-	return doc(firestoreDb, MESSAGE_PATH(roomId), messageId);
+const messageRef = (clientId) => {
+	return doc(firestoreDb, MESSAGES_PATH, clientId);
+};
+
+export const getMessage = (roomId) => {
+	return getDoc(messageRef(roomId));
 };
 
 export const getMessages = (roomId, messagesPerPage, lastLoadedMessage) => {
@@ -198,25 +92,12 @@ export const getMessages = (roomId, messagesPerPage, lastLoadedMessage) => {
 	}
 };
 
-export const getMessage = (roomId, messageId) => {
-	return getDocument(messageRef(roomId, messageId));
+export const addMessageList = async (data) => {
+	return addDocument(collection(firestoreDb, MESSAGES_PATH), data);
 };
 
-export const addMessage = async (roomId, data) => {
-	await fetch(
-		"https://api.telegram.org/${token}/sendMessage",
-		{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				chat_id: "@personalPageTako",
-				text: data.content,
-			}),
-		}
-	).then((response) => response.json());
-	return addDocument(messagesRef(roomId), data);
+export const updateMessageList = (clientId, data) => {
+	return updateDocument(messageRef(clientId), data);
 };
 
 export const updateMessage = (roomId, messageId, data) => {

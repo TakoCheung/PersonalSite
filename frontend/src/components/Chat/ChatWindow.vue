@@ -1,7 +1,7 @@
 <template>
   <div>
     <beautiful-chat :participants="participants" :titleImageUrl="titleImageUrl" :onMessageWasSent="onMessageWasSent"
-      :messageList="messageList" :newMessagesCount="newMessagesCount" :isOpen="isChatOpen" :close="closeChat"
+      :messageList="messages.list" :newMessagesCount="newMessagesCount" :isOpen="isChatOpen" :close="closeChat"
       :open="openChat" :showEmoji="true" :showFile="true" :showEdition="true" :showDeletion="true"
       :deletionConfirmation="true" :showTypingIndicator="showTypingIndicator" :showLauncher="true"
       :showCloseButton="true" :colors="colors" :alwaysScrollToBottom="alwaysScrollToBottom"
@@ -10,6 +10,7 @@
 </template>
 <script>
 import axios from 'axios';
+import * as firestoreService from '@/database/firestore'
 export default {
   name: 'ChatWindow',
   data() {
@@ -27,9 +28,9 @@ export default {
         }
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-      messageList: [
-        { type: 'text', author: `tako`, data: { text: `Welcome to my personal page.` } }
-      ], // the list of the messages to show, can be paginated and adjusted dynamically
+      messages: { list:
+        [{ type: 'text', author: `tako`, data: { text: `Welcome to my personal page.` } }]
+      }, // the list of the messages to show, can be paginated and adjusted dynamically
       newMessagesCount: 0,
       isChatOpen: false, // to determine whether the chat window should be open or closed
       showTypingIndicator: '', // when set to a value matching the participant.id it shows the typing indicator for the specific user
@@ -62,11 +63,12 @@ export default {
     }
   },
   methods: {
-    getClientId() {
+    async getClientId() {
       let clientId = localStorage.getItem('clientId');
       if (!clientId) {
-        clientId = '_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('clientId', clientId);
+        firestoreService.addMessageList(this.messages).then((doc) => {
+          localStorage.setItem('clientId', doc.id);
+        })
       }
       return clientId;
     },
@@ -82,18 +84,20 @@ export default {
       }
       return username;
     },
-    loadMessagesFromStorage() {
-      const storedMessages = localStorage.getItem('chatMessages');
-      return storedMessages ? JSON.parse(storedMessages) : [];
+    async loadMessagesFromStorage() {
+      // const storedMessages = firestoreService.getMessage(localStorage.getItem('clientId'));
+      // return storedMessages ? JSON.parse(storedMessages) : {};
+      firestoreService.getMessage(localStorage.getItem('clientId'))
+      .then((doc) => this.messages.list = doc.data().list);
     },
     saveMessagesToStorage() {
-      localStorage.setItem('chatMessages', JSON.stringify(this.messageList));
+      firestoreService.updateMessageList(localStorage.getItem('clientId'), this.messages)
+      // localStorage.setItem('chatMessages', JSON.stringify(this.messageList));
     },
     onMessageWasSent(message) {
       // called when the user sends a message
-      this.messageList = [...this.messageList, message]
+      this.messages.list = [...this.messages.list, message]
       message.sender = localStorage.getItem('username');
-      message.clientId = localStorage.getItem('clientId');
       this.$store.commit('sendMessage', message);
       this.saveMessagesToStorage();
     },
@@ -114,14 +118,14 @@ export default {
     handleOnType() {
       console.log('Emit typing event')
     },
-    editMessage(message) {
-      const m = this.messageList.find(m => m.id === message.id);
-      m.isEdited = true;
-      m.data.text = message.data.text;
-    },
+    // editMessage(message) {
+    //   const m = this.messageList.find(m => m.id === message.id);
+    //   m.isEdited = true;
+    //   m.data.text = message.data.text;
+    // },
     messageFromTelgram(update, author) {
       const message = { type: 'text', author: author, data: { text: update.text } }
-      this.messageList = [...this.messageList, message]
+      this.messages.list = [...this.messages.list, message]
       this.saveMessagesToStorage()
     },
     longPoll() {
@@ -138,7 +142,7 @@ export default {
             this.$store.commit('setLastUpdateId', this.updates[this.updates.length - 1].update_id + 1);
             if (Object.prototype.hasOwnProperty.call(update, "reply_to_message")) {
               const senderJson = JSON.parse(this.updates[0].channel_post.reply_to_message.text);
-              if (senderJson.sender == this.getUsername() && senderJson.clientId == this.getClientId()) {
+              if (senderJson.sender == this.getUsername() && senderJson.clientId == localStorage.getItem('clientId')) {
                 this.messageFromTelgram(update, 'tako')
               }
             }
@@ -159,7 +163,7 @@ export default {
   created() {
     // Start polling when the component is created
     this.getClientId();
-    this.messageList = this.loadMessagesFromStorage();
+    this.loadMessagesFromStorage();
     this.longPoll();
   }
 }
