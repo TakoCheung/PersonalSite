@@ -116,8 +116,8 @@ export default {
       this.messages.list = [...this.messages.list, message]
       this.saveMessagesToStorage()
     },
-    listenForDbUpdates() {
-      firestoreService.listenLastMessage(localStorage.getItem('clientId'), ()=>{
+    listenForDbUpdates(clientId) {
+      firestoreService.listenLastMessage(clientId, ()=>{
         this.loadMessagesFromStorage();
       })
     },
@@ -156,7 +156,7 @@ export default {
   created() {
     // Start polling when the component is created
     this.getClientId();
-    this.loadMessagesFromStorage();
+    // this.loadMessagesFromStorage();
     // this.longPoll();
   }
 }

@@ -12,13 +12,13 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
     }
 
     const msg = req.body;
-    // console.log("req.body", req.body);
+    console.debug("req.body", req.body);
 
     if (msg && msg.channel_post) {
       // Check if it's a new message, not a reply to another message
       if (!msg.channel_post.reply_to_message) {
         const replyMessage = msg.channel_post.text;
-        // console.log("replyMessage (broadcast):", replyMessage);
+        console.debug("replyMessage (broadcast):", replyMessage);
 
         const collectionRef = db.collection("messages");
         const querySnapshot = await collectionRef.get();
@@ -30,17 +30,17 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
           const updatePromise = doc.ref.update({
             list: admin.firestore.FieldValue.arrayUnion({
               type: "text",
-              author: "broadcast", // Fixed typo from 'boardcast'
+              author: "broadcast",
               data: {text: replyMessage},
             }),
           });
           updatePromises.push(updatePromise);
-          // console.log("Added update promise for doc:", doc.id);
+          console.debug("Added update promise for doc:", doc.id);
         });
 
         // Wait for all promises to resolve
         await Promise.all(updatePromises);
-        // console.log("All documents updated successfully");
+        console.debug("All documents updated successfully");
       } else {
         // Handling replies to existing messages
         const oriMessageText = msg.channel_post.reply_to_message.text;
@@ -49,7 +49,7 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
         try {
           // Parse the original message text as JSON
           oriMessage = JSON.parse(oriMessageText);
-          // console.log("Parsed oriMessage:", oriMessage);
+          console.debug("Parsed oriMessage:", oriMessage);
         } catch (parseError) {
           throw new Error(
               "Failed to parse original message as JSON: " + oriMessageText,
@@ -57,7 +57,7 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
         }
 
         const replyMessage = msg.channel_post.text;
-        // console.log("replyMessage (reply to original):", replyMessage);
+        console.debug("replyMessage (reply to original):", replyMessage);
 
         // Fetch the document for the original clientId and update it
         const docRef = db.doc("messages/" + oriMessage.clientId);
@@ -71,10 +71,10 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
               data: {text: replyMessage},
             }),
           });
-          // console.log(
-          //     "Document updated successfully for clientId:",
-          //     oriMessage.clientId,
-          // );
+          console.debug(
+              "Document updated successfully for clientId:",
+              oriMessage.clientId,
+          );
         } else {
           throw new Error(
               "Document not found for clientId: " + oriMessage.clientId,
