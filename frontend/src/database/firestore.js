@@ -61,7 +61,7 @@ const messagesRef = () => {
 	return collection(firestoreDb, MESSAGES_PATH);
 };
 
-const messageRef = (clientId) => {
+export const messageRef = (clientId) => {
 	return doc(firestoreDb, MESSAGES_PATH, clientId);
 };
 
@@ -175,12 +175,12 @@ const formatQueryDataArray = (queryDataArray) => {
 };
 
 const lastMessageQuery = (roomId) => {
-	return query(messagesRef(roomId), orderBy(TIMESTAMP_FIELD, "desc"), limit(1));
+	return query(messagesRef(roomId), limit(1));
 };
 
 export const listenLastMessage = (roomId, callback) => {
-	return firestoreListener(query(lastMessageQuery(roomId)), (messages) => {
-		callback(formatQueryDataArray(messages));
+	return firestoreListener(query(lastMessageQuery(roomId)), () => {
+		callback();
 	});
 };
 
