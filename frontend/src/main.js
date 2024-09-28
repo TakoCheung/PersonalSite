@@ -31,7 +31,6 @@ const store = createStore({
 		cstDetailsShown: false,
 		wmtTimeLineShown: false,
 		wmtDetailsShown: false,
-		botToken: process.env.VUE_APP_SECRET,
 		lastUpdateId: 0
 	},
 	mutations: {
@@ -72,7 +71,7 @@ const store = createStore({
 		},
 		sendMessage(state, data) {
 			fetch(
-				`https://api.telegram.org/${state.botToken}/sendMessage`,
+				`https://api.telegram.org/${process.env.VUE_APP_SECRET}/sendMessage`,
 				{
 					method: "POST",
 					headers: {

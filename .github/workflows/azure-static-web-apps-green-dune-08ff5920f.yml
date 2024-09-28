@@ -30,6 +30,7 @@ jobs:
           VUE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VUE_APP_FIREBASE_MESSAGING_SENDER_ID }}
           VUE_APP_FIREBASE_APP_ID: ${{ secrets.VUE_APP_FIREBASE_APP_ID }}
           VUE_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.VUE_APP_FIREBASE_MEASUREMENT_ID }}
+          IP_TOKEN: ${{ secrets.IP_TOKEN }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_DUNE_08FF5920F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)

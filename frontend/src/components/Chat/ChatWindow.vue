@@ -5,7 +5,7 @@
       :open="openChat" :showEmoji="true" :showFile="true" :showEdition="true" :showDeletion="true"
       :deletionConfirmation="true" :showTypingIndicator="showTypingIndicator" :showLauncher="true"
       :showCloseButton="true" :colors="colors" :alwaysScrollToBottom="alwaysScrollToBottom"
-      :disableUserListToggle="false" :messageStyling="messageStyling" @onType="handleOnType" @edit="editMessage" />
+      :disableUserListToggle="false" :messageStyling="messageStyling" />
   </div>
 </template>
 <script>
@@ -63,16 +63,12 @@ export default {
     }
   },
   methods: {
-    getClientId() {
-      const clientId = localStorage.getItem('clientId');
-      if (!clientId) {
-        firestoreService.addMessageList(this.messages).then((doc) => {
+    async getClientId() {
+      if (!localStorage.getItem('clientId')) {
+        await firestoreService.addMessageList(this.messages).then((doc) => {
           localStorage.setItem('clientId', doc.id);
         })
-      } else {
-        this.listenForDbUpdates(clientId); // Start listening to updates if clientId exists
       }
-      return clientId;
     },
     getUsername() {
       let username = localStorage.getItem('username');
@@ -86,7 +82,7 @@ export default {
       }
       return username;
     },
-    async loadMessagesFromStorage() {
+    loadMessagesFromStorage() {
       firestoreService.getMessage(localStorage.getItem('clientId'))
         .then((doc) => this.messages.list = doc.data().list);
     },
@@ -108,56 +104,31 @@ export default {
     closeChat() {
       this.isChatOpen = false
     },
-    handleOnType() {
-      console.log('Emit typing event')
-    },
     messageFromTelgram(update, author) {
       const message = { type: 'text', author: author, data: { text: update.text } }
       this.messages.list = [...this.messages.list, message]
       this.saveMessagesToStorage()
     },
-    listenForDbUpdates(clientId) {
-      firestoreService.listenLastMessage(clientId, ()=>{
-        this.loadMessagesFromStorage();
-      })
-    },
-    // longPoll() {
-    //   axios.get(`https://api.telegram.org/${this.$store.state.botToken}/getUpdates`, {
-    //     params: {
-    //       offset: this.$store.state.lastUpdateId,
-    //       timeout: 60 // Wait for up to 60 seconds for new updates
-    //     }
-    //   })
-    //     .then(response => {
-    //       this.updates = response.data.result;
-    //       if (this.updates.length > 0) {
-    //         const update = this.updates[0].channel_post;
-    //         this.$store.commit('setLastUpdateId', this.updates[this.updates.length - 1].update_id + 1);
-    //         if (Object.prototype.hasOwnProperty.call(update, "reply_to_message")) {
-    //           const senderJson = JSON.parse(this.updates[0].channel_post.reply_to_message.text);
-    //           if (senderJson.sender == this.getUsername() && senderJson.clientId == localStorage.getItem('clientId')) {
-    //             this.messageFromTelgram(update, 'tako')
-    //           }
-    //         }
-    //         else {
-    //           this.messageFromTelgram(update, 'boardcast')
-    //         }
-    //       }
-    //       this.longPoll();
-    //     })
-    //     .catch(error => {
-    //       if (error.status != 409) console.error(error);
+    listenForDbUpdates() {
+      const clientId = localStorage.getItem('clientId');
+      if (!clientId) {
+        console.error("No clientId found in localStorage");
+        return;
+      }
 
-    //       // If an error occurred, start a new poll after a delay
-    //       setTimeout(() => this.longPoll(), 5000);
-    //     });
-    // }
+      firestoreService.listenLastMessage(clientId, (messages) => {
+        if (messages && messages.list) {
+          this.messages.list = messages.list;
+          console.debug("Updated message list from Firestore:", this.messages.list);
+        } else {
+          console.error("No messages found for clientId:", clientId);
+        }
+      });
+    }
   },
-  created() {
-    // Start polling when the component is created
-    this.getClientId();
-    // this.loadMessagesFromStorage();
-    // this.longPoll();
+  async created() {
+    await this.getClientId();
+    this.listenForDbUpdates();
   }
 }
-</script>
+</script>∏

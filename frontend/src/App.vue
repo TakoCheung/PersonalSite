@@ -1,7 +1,7 @@
 <template>
   <ProgressIndicator />
   <v-container>
-    <ChatWindow/>
+    <ChatWindow />
     <div id="app">
       <nav class="main-nav">
         <Burger />
@@ -55,16 +55,19 @@ export default {
       this.$store.commit('toggleNav');
     },
     visited() {
-      if (window.visitorIp !== '') {
-        fetch("http://ip-api.com/json", {
-          method: 'GET'
+
+      fetch("https://api.ipify.org?format=json", {
+        method: 'GET'
+      })
+        .then(response => response.json())
+        .then(data => {
+          // window.visitorIp = data.query.replaceAll('.', '_');
+          // this.$store.commit('sendMessage', data);
+          fetch(`https://ipinfo.io/${data.ip}/json?token=${process.env.IP_TOKEN}`, {
+            method: 'GET'
+          }).then(response => response.json()).then(data => { this.$store.commit('sendMessage', data); })
         })
-          .then(response => response.json())
-          .then(data => {
-            // window.visitorIp = data.query.replaceAll('.', '_');
-            this.$store.commit('sendMessage', data);
-          })
-      }
+
     }
   },
   beforeMount() {
@@ -281,7 +284,7 @@ button:focus {
   z-index: 100;
 }
 
-.sc-chat-window.opened{
+.sc-chat-window.opened {
   z-index: 999;
 }
 </style>

@@ -19,6 +19,8 @@ module.exports = defineConfig({
           VUE_APP_FIREBASE_MESSAGING_SENDER_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID),
           VUE_APP_FIREBASE_APP_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_APP_ID),
           VUE_APP_FIREBASE_MEASUREMENT_ID: JSON.stringify(process.env.VUE_APP_FIREBASE_MEASUREMENT_ID),
+          VUE_APP_SECRET: JSON.stringify(process.env.VUE_APP_SECRET),
+          IP_TOKEN: JSON.stringify(process.env.IP_TOKEN)
         },
       }),
     ],

@@ -45,11 +45,13 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
         // Handling replies to existing messages
         const oriMessageText = msg.channel_post.reply_to_message.text;
         let oriMessage;
+        let clientId;
 
         try {
           // Parse the original message text as JSON
           oriMessage = JSON.parse(oriMessageText);
           console.debug("Parsed oriMessage:", oriMessage);
+          clientId = oriMessage.clientId;
         } catch (parseError) {
           throw new Error(
               "Failed to parse original message as JSON: " + oriMessageText,
@@ -60,11 +62,11 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
         console.debug("replyMessage (reply to original):", replyMessage);
 
         // Fetch the document for the original clientId and update it
-        const docRef = db.doc("messages/" + oriMessage.clientId);
-        const docSnapshot = await docRef.get();
+        const collectionRef = db.collection("messages");
+        const docRef = await collectionRef.doc(clientId).get();
 
-        if (docSnapshot.exists) {
-          await docRef.update({
+        if (docRef.exists) {
+          await docRef.ref.update({
             list: admin.firestore.FieldValue.arrayUnion({
               type: "text",
               author: "tako",
@@ -73,12 +75,10 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
           });
           console.debug(
               "Document updated successfully for clientId:",
-              oriMessage.clientId,
+              clientId,
           );
         } else {
-          throw new Error(
-              "Document not found for clientId: " + oriMessage.clientId,
-          );
+          throw new Error("Document not found for clientId: " + clientId);
         }
       }
     }
