@@ -29,6 +29,9 @@
             <li @click="toggle">
               <router-link to="/QRcode">QR Code</router-link>
             </li>
+            <li @click="toggle">
+              <router-link to="/Converter">Converter</router-link>
+            </li>
           </ul>
         </Sidebar>
       </nav>

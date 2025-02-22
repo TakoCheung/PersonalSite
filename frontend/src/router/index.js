@@ -6,6 +6,7 @@ import ProjectDemo from "../views/Demo.vue";
 import Certs from "@/views/Certs.vue";
 import Resume from "@/views/Resume.vue";
 import QrCode from "@/views/QrCode.vue";
+import Converter from "@/views/Converter.vue";
 
 const routes = [
 	{
@@ -46,6 +47,11 @@ const routes = [
 		path: "/QrCode",
 		name: "QrCode",
 		component: QrCode,
+	},
+	{
+		path: "/Converter",
+		name: "Converter",
+		component: Converter,
 	}
 ];
 

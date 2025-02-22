@@ -3,20 +3,7 @@ import { createStore } from "vuex";
 import App from "@/App.vue";
 import router from "@/router/index";
 import { createVuetify } from "vuetify";
-import {
-	VContainer,
-	VCardActions,
-	VBtn,
-	VAvatar,
-	VListItem,
-	VExpandTransition,
-	VCard,
-	VCardText,
-	VRow,
-	VCol,
-	VCombobox,
-	VTooltip,
-} from "vuetify/components";
+import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import "vuetify/styles";
 import { GChart } from "vue-google-charts";
@@ -92,18 +79,7 @@ const store = createStore({
 
 const vuetify = createVuetify({
 	components: {
-		VContainer,
-		VCardActions,
-		VBtn,
-		VAvatar,
-		VListItem,
-		VExpandTransition,
-		VCard,
-		VCardText,
-		VRow,
-		VCol,
-		VCombobox,
-		VTooltip,
+		...components,
 	},
 	directives,
 });
