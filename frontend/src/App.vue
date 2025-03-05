@@ -104,6 +104,14 @@ html {
   list-style-type: none;
   padding-left: 1rem;
   margin-top: 0.5rem;
+  color: #fff;
+}
+
+/* Ensure sub-menu links are white */
+.sub-menu li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.3rem;
 }
 
 .demo-menu {
