@@ -17,20 +17,28 @@
             <li @click="toggle">
               <router-link to="/Exprience">Exprience</router-link>
             </li>
-            <li @click="toggle">
-              <router-link to="/Demo">Demo</router-link>
+            <li>
+              <ul class="demo-menu" @click="toggleDemoMenu">
+                <span v-if="!demoExpanded">Demo▼</span>
+                <span v-else>Demo▲</span>
+              </ul>
+              <ul v-if="demoExpanded" class="sub-menu">
+                <li @click="toggle">
+                  <router-link to="/Demo">Movment AI</router-link>
+                </li>
+                <li @click="toggle">
+                  <router-link to="/QRcode">QR Code</router-link>
+                </li>
+                <li @click="toggle">
+                  <router-link to="/Converter">Converter</router-link>
+                </li>
+              </ul>
             </li>
             <li @click="toggle">
               <router-link to="/Certs">Certificates</router-link>
             </li>
             <li @click="toggle">
               <router-link to="/Resume">Resume</router-link>
-            </li>
-            <li @click="toggle">
-              <router-link to="/QRcode">QR Code</router-link>
-            </li>
-            <li @click="toggle">
-              <router-link to="/Converter">Converter</router-link>
             </li>
           </ul>
         </Sidebar>
@@ -53,24 +61,30 @@ export default {
     ProgressIndicator,
     ChatWindow
   },
+  data() {
+    return {
+      demoExpanded: false,
+    }
+  },
   methods: {
     toggle() {
       this.$store.commit('toggleNav');
     },
+    toggleDemoMenu() {
+      this.demoExpanded = !this.demoExpanded;
+    },
     visited() {
-
       fetch("https://api.ipify.org?format=json", {
         method: 'GET'
       })
         .then(response => response.json())
         .then(data => {
-          // window.visitorIp = data.query.replaceAll('.', '_');
-          // this.$store.commit('sendMessage', data);
           fetch(`https://ipinfo.io/${data.ip}/json?token=${process.env.IP_TOKEN}`, {
             method: 'GET'
-          }).then(response => response.json()).then(data => { this.$store.commit('sendMessage', data); })
+          })
+          .then(response => response.json())
+          .then(data => { this.$store.commit('sendMessage', data); })
         })
-
     }
   },
   beforeMount() {
@@ -78,10 +92,35 @@ export default {
   }
 }
 </script>
+
 <style>
 html {
   height: 100%;
   overflow: auto;
+}
+
+/* Sub-menu styling */
+.sub-menu {
+  list-style-type: none;
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.demo-menu {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  padding-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Styling for caret icons */
+.caret {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  user-select: none;
 }
 
 body {
