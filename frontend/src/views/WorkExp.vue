@@ -19,6 +19,14 @@
         id="wmt" />
     </v-col>
     <v-col cols="12">
+      <ExpCard organization="Farragut Systems" :start="fsStart" :end="fsEnd" :detail-card-height=266
+        :time-line-card-height=256 positionTitle="Software Developer"
+        shortDesc="• Integrated Jenkins with MS Team to enable real-time notification for better CI monitoring." longDesc="<p>• Converted an Angular component into React component.</p>
+            <p>• Made a Message Box component in React so that the Message Box is reusable within the App.</p>
+            <p>• Write the code in the cloud with Cloud9, CloudFormation, CloudWatch, Lambda, Step Function, S3, EC2 in AWS
+            </p>" pathToLogo="../../assets/farragut.jpeg" color-of-org="#d7332c" id="fs" />
+    </v-col>
+    <v-col cols="12">
       <ExpCard organization="CentralSquare Techolgies" :start="cstStart" :end="cstEnd" :detail-card-height=306
         :time-line-card-height=256 positionTitle="Software Developer III" shortDesc="• Implemented a secured web API using
         <a href='https://docs.microsoft.com/en-us/dotnet/framework/network-programming/httplistener'>HttpListener</a> with JWT
@@ -60,11 +68,13 @@ export default {
   setup() {
     const today = new Date(Date.now());
     const walmarStart = new Date(2022, 4, 4);
-    const cstEnd = new Date(2022, 4, 4);
+    const fsEnd = new Date(2022, 4, 4);
+    const fsStart = new Date(2021, 1, 4);
+    const cstEnd = new Date(2021, 1, 4);
     const cstStart = new Date(2018, 5, 4);
     const hwEnd = new Date(2018, 5, 4);
     const hwStart = new Date(2016, 1, 4);
-    return { hwStart, hwEnd, cstStart, cstEnd, walmarStart, today }
+    return { hwStart, hwEnd, cstStart, cstEnd, fsStart, fsEnd, walmarStart, today }
   }
 }
 </script>
