@@ -32,6 +32,9 @@
                 <li @click="toggle">
                   <router-link to="/Converter">Converter</router-link>
                 </li>
+                <li @click="toggle">
+                  <router-link to="/SolarSystem">Solar System</router-link>
+                </li>
               </ul>
             </li>
             <li @click="toggle">
