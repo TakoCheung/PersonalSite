@@ -105,6 +105,7 @@ export default {
       gifUrl: "",
       gifBlob: null,
       loading: false,
+      videoDuration: null,  // <--- New property for storing video duration
 
       // Dropdown data
       fpsOptions: [5, 10, 15, 24, 30, 60],
@@ -137,6 +138,19 @@ export default {
       if (file) {
         this.videoFile = file;
         this.videoUrl = URL.createObjectURL(file);
+
+        // Extract video duration using HTMLVideoElement
+        const video = document.createElement('video');
+        video.preload = 'metadata';
+        video.src = this.videoUrl;
+        video.onloadedmetadata = () => {
+          URL.revokeObjectURL(video.src);
+          this.videoDuration = video.duration || 5;
+          console.log('Video duration:', this.videoDuration);
+        };
+        video.onerror = () => {
+          console.error('Error loading video metadata');
+        };
       }
     },
 
@@ -164,28 +178,13 @@ export default {
         const fileData = new Uint8Array(await this.videoFile.arrayBuffer());
         await this.ffmpeg.writeFile(inputName, fileData);
 
-        // 3) Export metadata to find duration
-        await this.ffmpeg.exec(["-i", inputName, "-f", "ffmetadata", "metadata.txt"]);
-        const metaBytes = await this.ffmpeg.readFile("metadata.txt");
-        const metaText = new TextDecoder().decode(metaBytes);
-
-        // 4) Look for "Duration=HH:MM:SS.xx" line
-        let durationSeconds = 5; // fallback
-        const durationMatch = metaText.match(/Duration\s*=\s*(\d+):(\d+):([\d.]+)/);
-        if (durationMatch) {
-          const hours = parseInt(durationMatch[1], 10);
-          const minutes = parseInt(durationMatch[2], 10);
-          const seconds = parseFloat(durationMatch[3]);
-          durationSeconds = hours * 3600 + minutes * 60 + seconds;
-        }
-
-        console.log(`Video Duration: ${durationSeconds}s`);
+        console.log(`Video Duration: ${this.videoDuration}s`);
 
         // 5) Convert entire duration to GIF
         const outputName = "output.gif";
         await this.ffmpeg.exec([
           "-i", inputName,
-          "-t", `${durationSeconds}`,
+          "-t", `${this.videoDuration}`,
           "-vf", `fps=${this.selectedFps},scale=${this.selectedScale}:-1:flags=lanczos`,
           "-gifflags", "-offsetting",
           outputName
