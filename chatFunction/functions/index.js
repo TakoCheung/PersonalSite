@@ -4,6 +4,19 @@ admin.initializeApp();
 
 const db = admin.firestore();
 
+/**
+ * Cloud Function to handle incoming Telegram webhook data
+ * and store messages in Firestore.
+ *
+ * Handles two types of messages:
+ * 1. Broadcast messages - sent to all clients
+ * 2. Reply messages - sent to specific client based on clientId
+ *
+ * @param {Object} req - HTTP request object
+ * @param {Object} req.body - Telegram webhook payload
+ * @param {Object} res - HTTP response object
+ * @returns {Promise<void>}
+ */
 exports.saveData = functions.https.onRequest(async (req, res) => {
   try {
     // Check for POST method
@@ -13,6 +26,11 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
 
     const msg = req.body;
     console.debug("req.body", req.body);
+
+    // Validate request body structure
+    if (!msg || typeof msg !== "object") {
+      return res.status(400).send({error: "Invalid request body"});
+    }
 
     if (msg && msg.channel_post) {
       // Check if it's a new message, not a reply to another message
@@ -52,10 +70,17 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
           oriMessage = JSON.parse(oriMessageText);
           console.debug("Parsed oriMessage:", oriMessage);
           clientId = oriMessage.clientId;
+
+          // Validate parsed message structure
+          if (!clientId || typeof clientId !== "string") {
+            throw new Error("Invalid clientId in parsed message");
+          }
         } catch (parseError) {
-          throw new Error(
-              "Failed to parse original message as JSON: " + oriMessageText,
-          );
+          console.error("JSON parse error:", parseError.message);
+          return res.status(400).send({
+            error: "Invalid message format",
+            details: parseError.message,
+          });
         }
 
         const replyMessage = msg.channel_post.text;
@@ -78,7 +103,11 @@ exports.saveData = functions.https.onRequest(async (req, res) => {
               clientId,
           );
         } else {
-          throw new Error("Document not found for clientId: " + clientId);
+          console.warn("Document not found for clientId:", clientId);
+          return res.status(404).send({
+            error: "Document not found",
+            clientId: clientId,
+          });
         }
       }
     }

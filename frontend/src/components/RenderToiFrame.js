@@ -21,7 +21,7 @@ export default {
       const el = document.createElement("div")
       iframeBody.value.appendChild(el)
       iframeStyle.value = document.createElement("style")
-      iframeStyle.value.innerHTML = props.css
+      iframeStyle.value.textContent = props.css
       iframeHead.value.appendChild(iframeStyle.value)
 
       iframeApp = createApp({
@@ -36,7 +36,7 @@ export default {
         return
       }
       if (props.css) {
-        iframeStyle.value.innerHTML = props.css
+        iframeStyle.value.textContent = props.css
       }
     })
     return () => h("iframe", { ref: iframeRef })

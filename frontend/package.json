@@ -13,15 +13,12 @@
     "@ffmpeg/ffmpeg": "^0.12.15",
     "core-js": "^3.31.0",
     "firebase": "^10.12.5",
-    "jquery": "^3.7.0",
     "lamejs": "^1.2.1",
     "p5": "^1.6.0",
     "pdf-vue3": "^1.0.12",
     "qrcode": "^1.5.4",
-    "storage": "^0.2.0",
     "three": "^0.174.0",
     "vue": "^3.3.4",
-    "vue-advanced-chat": "^2.0.7",
     "vue-google-charts": "^1.1.0",
     "vue-router": "^4.2.2",
     "vue-scroll-progress": "^1.1.5",
@@ -55,7 +52,15 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "no-console": ["warn", { "allow": ["warn", "error"] }],
+      "no-debugger": "warn",
+      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+      "vue/no-unused-components": "warn",
+      "vue/no-unused-vars": "warn",
+      "no-eval": "error",
+      "no-implied-eval": "error"
+    }
   },
   "browserslist": [
     "> 1%",
