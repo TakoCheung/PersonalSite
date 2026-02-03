@@ -4,6 +4,19 @@ admin.initializeApp();
 
 const db = admin.firestore();
 
+/**
+ * Cloud Function to handle incoming Telegram webhook data
+ * and store messages in Firestore.
+ * 
+ * Handles two types of messages:
+ * 1. Broadcast messages - sent to all clients
+ * 2. Reply messages - sent to specific client based on clientId
+ * 
+ * @param {Object} req - HTTP request object
+ * @param {Object} req.body - Telegram webhook payload
+ * @param {Object} res - HTTP response object
+ * @returns {Promise<void>}
+ */
 exports.saveData = functions.https.onRequest(async (req, res) => {
   try {
     // Check for POST method
