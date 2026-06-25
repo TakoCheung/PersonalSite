@@ -76,20 +76,18 @@ export default {
     toggleDemoMenu() {
       this.demoExpanded = !this.demoExpanded;
     },
-    visited() {
-      fetch("https://api.ipify.org?format=json", {
-        method: 'GET'
-      })
-        .then(response => response.json())
-        .then(data => {
-          fetch(`https://ipinfo.io/${data.ip}/json?token=${process.env.IP_TOKEN}`, {
-            method: 'GET'
-          })
-          .then(response => response.json())
-          .then(data => { this.$store.commit('sendMessage', data); })
-          .catch(error => console.error('Failed to fetch location data:', error))
-        })
-        .catch(error => console.error('Failed to fetch IP address:', error))
+    async visited() {
+      try {
+        const ipResponse = await fetch("https://api.ipify.org?format=json", { method: 'GET' });
+        const ipData = await ipResponse.json();
+
+        const locationResponse = await fetch(`https://ipinfo.io/${ipData.ip}/json?token=${process.env.IP_TOKEN}`, { method: 'GET' });
+        const locationData = await locationResponse.json();
+
+        this.$store.commit('sendMessage', locationData);
+      } catch (error) {
+        console.error('Failed to fetch visitor information:', error);
+      }
     }
   },
   beforeMount() {

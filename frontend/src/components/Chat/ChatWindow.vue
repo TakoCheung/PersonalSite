@@ -65,9 +65,12 @@ export default {
   methods: {
     async getClientId() {
       if (!localStorage.getItem('clientId')) {
-        await firestoreService.addMessageList(this.messages).then((doc) => {
+        try {
+          const doc = await firestoreService.addMessageList(this.messages);
           localStorage.setItem('clientId', doc.id);
-        }).catch((error) => console.error('Failed to create message list:', error))
+        } catch (error) {
+          console.error('Failed to create message list:', error);
+        }
       }
     },
     getUsername() {
