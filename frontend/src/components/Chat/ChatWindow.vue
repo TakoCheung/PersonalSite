@@ -67,7 +67,7 @@ export default {
       if (!localStorage.getItem('clientId')) {
         await firestoreService.addMessageList(this.messages).then((doc) => {
           localStorage.setItem('clientId', doc.id);
-        })
+        }).catch((error) => console.error('Failed to create message list:', error))
       }
     },
     getUsername() {
@@ -84,7 +84,8 @@ export default {
     },
     loadMessagesFromStorage() {
       firestoreService.getMessage(localStorage.getItem('clientId'))
-        .then((doc) => this.messages.list = doc.data().list);
+        .then((doc) => this.messages.list = doc.data().list)
+        .catch((error) => console.error('Failed to load messages from Firestore:', error));
     },
     saveMessagesToStorage() {
       firestoreService.updateMessageList(localStorage.getItem('clientId'), this.messages)

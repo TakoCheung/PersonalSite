@@ -5,9 +5,7 @@ import {
 	deleteField,
 	doc,
 	getDoc,
-	// limit,
 	onSnapshot,
-	// query,
 	updateDoc,
 } from "firebase/firestore";
 
@@ -27,8 +25,6 @@ const updateDocument = (ref, data) => {
 
 // MESSAGES
 
-// const messagesRef = () => collection(firestoreDb, MESSAGES_PATH);
-
 const messageRef = (clientId) =>
 	doc(firestoreDb, MESSAGES_PATH, clientId);
 
@@ -45,12 +41,6 @@ export const updateMessageList = (clientId, data) => {
 export const updateMessage = (roomId, messageId, data) => {
 	return updateDocument(messageRef(roomId, messageId), data);
 };
-
-// const formatQueryDataObject = (queryData) => {
-// 	return { ...queryData.data(), id: queryData.id };
-// };
-
-// const lastMessageQuery = (roomId) => query(messageRef(roomId));
 
 export const listenLastMessage = (roomId, callback) => {
 	return firestoreListener(messageRef(roomId), (snapshot) => {

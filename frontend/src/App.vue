@@ -87,7 +87,9 @@ export default {
           })
           .then(response => response.json())
           .then(data => { this.$store.commit('sendMessage', data); })
+          .catch(error => console.error('Failed to fetch location data:', error))
         })
+        .catch(error => console.error('Failed to fetch IP address:', error))
     }
   },
   beforeMount() {

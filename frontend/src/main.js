@@ -16,6 +16,8 @@ const store = createStore({
 		hwDetailsShown: false,
 		cstTimeLineShown: false,
 		cstDetailsShown: false,
+		fsTimeLineShown: false,
+		fsDetailsShown: false,
 		wmtTimeLineShown: false,
 		wmtDetailsShown: false,
 		lastUpdateId: 0
